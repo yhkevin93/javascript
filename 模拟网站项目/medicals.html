@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/md5.min.js" ></script>
+		<script type="text/javascript" src="js/function.js" ></script>
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js" ></script>
+	</head>
+
+	<body>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function () {
+				
+				console.log("plus"+plus.storage.getItem("medlist1"))
+				
+				if(!plus.storage.getItem("medlist1")){
+					var li = "<li class='mui-table-view-cell'>用户没有此项检查</li>"
+					$("#empty").append(li)
+				}
+				
+			     for(var i = 0;i < 20;i++){
+						var id = "medlist"+ i
+						$("#empty").append(plus.storage.getItem(id))				
+					}
+			});
+			
+			function openMedical(){
+				 var id = $(".mui-navigate-right").attr('id');
+
+  mui.openWindow('medical.html','medical',{
+						extras:{
+							myid:id
+						}
+					})
+			}
+		</script>
+		
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">个性化用药基因检测</h1>
+		</header>
+		
+		<div class="mui-content">
+		    			<ul class="mui-table-view" id="empty">
+			       
+			    </ul>
+		</div>
+	</body>
+
+</html>

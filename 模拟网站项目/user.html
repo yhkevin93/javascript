@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js" ></script>
+	</head>
+
+	<body>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			
+			mui.plusReady(function () {
+			    if (plus.storage.getItem("username")) {
+					document.getElementById("name").innerHTML =plus.storage.getItem("name");
+				}
+			    
+			    if (plus.storage.getItem("card")) {
+					document.getElementById("card").innerHTML = plus.storage.getItem("card");
+				}
+			    
+			      for(var i = 0;i < 20;i++){
+						var adv ="adv"+i
+						$("#adv").append(plus.storage.getItem(adv))					
+					}
+			      for(var i = 0;i < 20;i++){
+						var rou ="rou"+i
+						$("#rou").append(plus.storage.getItem(rou))					
+					}
+			      for(var i = 0;i < 20;i++){
+						var weak ="weak"+i
+						$("#weak").append(plus.storage.getItem(weak))					
+					}
+			})
+		</script>
+		
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">我与生俱来的健康能力</h1>
+		</header>
+		
+		<div class="mui-content">
+		    <ul class="mui-table-view">
+		        <li class="mui-table-view-cell mui-media">
+		            <a  href="javascript:;">
+		                <img class="mui-media-object mui-pull-left" src="img/ico_head.png">
+		                <div  class="mui-media-body">
+		                   <span id="name">姓名 性别</span>
+		                    <p id="card" class="mui-ellipsis">条码</p>
+		                </div>
+		            </a>
+		        </li>
+		        <li class="mui-table-view-cell mui-media">
+		            <a href="javascript:;">
+		                <img class="mui-media-object mui-pull-left" src="img/ico_3.png">
+		                <div class="mui-media-body" >
+		                    遗传优势
+		                   <div id="adv">
+		                   	 
+		                   </div>
+		                </div>
+		            </a>
+		        </li>
+		        <li class="mui-table-view-cell mui-media">
+		            <a href="javascript:;">
+		                <img class="mui-media-object mui-pull-left" src="img/ico_2.png">
+		                <div class="mui-media-body">
+		                    一般水平
+		                   <div id="rou"></div>
+		                </div>
+		            </a>
+		            </li>
+		             <li class="mui-table-view-cell mui-media">
+		             <a href="javascript:;">
+		                <img class="mui-media-object mui-pull-left" src="img/ico_1.png">
+		                <div class="mui-media-body">
+		                    遗传弱势
+		                    <div id="weak"></div>
+		                </div>
+		            </a>
+		        </li>
+		    </ul>
+		</div>
+	</body>
+
+</html>
