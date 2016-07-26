@@ -21,7 +21,7 @@
 				var name = document.getElementById("name").value;
 				var password = document.getElementById("password").value;
 
-				mui.ajax("http://10.1.1.244:1337/login", {
+				mui.ajax("http://192.168.0.100:1337/login", {
 					data: {
 						name: name,
 						password: password
@@ -42,7 +42,7 @@
 			function uploadByForm() {
 				console.log("upload")
 				var formData = new FormData($("#myForm")[0]); //用form 表单直接 构造formData 对象; 就不需要下面的append 方法来为表单进行赋值了。
-				var url = "http://10.1.1.244:1337/onloadImg"; //服务器地址
+				var url = "http://192.168.0.100:1337/onloadImg"; //服务器地址
 				$.ajax({
 					url: url,
 					type: 'POST',
