@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+		<script type="text/javascript" src="js/json3.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+
+	<body class="main_points">
+
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">基因报告要点指导</h1>
+		</header>
+		<div class="mui-content">
+
+			<div id="pagemain">
+
+				<ul class="choose">
+					<li id="肿瘤类疾病风险" class="item item-1" style="margin-bottom:  ;"><span class="ico" style="background-image: url(img/main_points-ico-01.png);"></span><span class="text">肿瘤类疾病</span></li>
+					<li id="心脑血管疾病风险" class="item item-1" style="margin-bottom:  ;"><span class="ico" style="background-image: url(img/main_points-ico-02.png);"></span><span class="text">心脑血管类疾病</span></a>
+					</li>
+					<li id="免疫性疾病风险" class="item item-3">
+						<a href="/Home/User/medica/id/3.html"><span class="ico" style="background-image: url(img/main_points-ico-03.png);"></span><span class="text">免疫类疾病</span></a>
+					</li>
+					<li id="代谢性疾病风险" class="item item-4">
+						<a href="/Home/User/medica/id/4.html"><span class="ico" style="background-image: url(img/main_points-ico-04.png);"></span><span class="text">代谢类疾病</span></a>
+					</li>
+					<li id="呼吸系统疾病风险" class="item item-5">
+						<a href="/Home/User/medica/id/5.html"><span class="ico" style="background-image: url(img/main_points-ico-05.png);"></span><span class="text">呼吸类疾病</span></a>
+					</li>
+					<li id="消化系统疾病风险" class="item item-6">
+						<a href="/Home/User/medica/id/6.html"><span class="ico" style="background-image: url(img/main_points-ico-06.png);"></span><span class="text">消化类疾病</span></a>
+					</li>
+					<li id="神经系统疾病风险" class="item item-7">
+						<a href="/Home/User/medica/id/7.html"><span class="ico" style="background-image: url(img/main_points-ico-07.png);"></span><span class="text">神经系统疾病</span></a>
+					</li>
+					<li id="机体代谢能力风险" class="item item-8">
+						<a href="/Home/User/medica/id/8.html"><span class="ico" style="background-image: url(img/main_points-ico-08.png);"></span><span class="text">机体代谢能力</span></a>
+					</li>
+				</ul>
+
+			</div>
+
+		</div>
+
+		<script>
+			mui(".choose").on('tap', '.item', function() {
+				//获取id
+				var id = this.getAttribute("id");
+
+				mui.openWindow('points.html', 'points', {
+					extras: {
+						myid: id
+					}
+				})
+			})
+		</script>
+	</body>
+
+</html>

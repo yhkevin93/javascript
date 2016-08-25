@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/function.js"></script>
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+		<script type="text/javascript" src="js/md5.min.js"></script>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				var id = self.myid
+
+				for(var i = 0; i < 20; i++) {
+					var imgid = id + "medimg" + i
+					$("#empty").append(plus.storage.getItem(imgid))
+				}
+
+			})
+		</script>
+
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">报告</h1>
+		</header>
+
+		<div class="mui-content">
+			<div id="empty"></div>
+		</div>
+	</body>
+
+</html>

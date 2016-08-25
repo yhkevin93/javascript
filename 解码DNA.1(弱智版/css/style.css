@@ -1,0 +1,920 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-size-adjust: none;
+}
+@media screen and (max-width: 320px) {
+  html,
+  body {
+    font-size: 10px;
+  }
+}
+@media screen and (max-width: 360px) {
+  html,
+  body {
+    font-size: 11.2px;
+  }
+}
+/*iphoto6*/
+@media screen and (max-width: 375px) {
+  html,
+  body {
+    font-size: 11.7px;
+  }
+}
+/*xioami note*/
+@media screen and (max-width: 393px) {
+  html,
+  body {
+    font-size: 12px;
+  }
+}
+body {
+  background: url(../img/bg.jpg) repeat-y 50% 0 fixed;
+  -webkit-background-size: contain;
+  background-size: contain;
+}
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: #666;
+}
+#header {
+  position: fixed;
+  width: 100%;
+  height: 4.5rem;
+  top: 0;
+  background-color: #2e9b95;
+  z-index: 9;
+}
+#header:after {
+  height: 0.5rem;
+  width: 100%;
+  background-color: #fff;
+  display: block;
+  content: '';
+}
+#header .btn {
+  position: absolute;
+  top: 1.5rem;
+  width: 1.6rem;
+  height: 1.6rem;
+}
+#header .btn_left {
+  left: 0.5rem;
+}
+#header .btn_right {
+  right: 0.5rem;
+}
+#header .btn_return {
+  background: url("../images/return.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+#header .btn_return:hover {
+  background: url("../images/return_hover.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+#header .btn_next {
+  background: url("../images/next.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+#header .btn_next:hover {
+  background: url("../images/next_hover.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+#header .title {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #fff;
+  font-weight: bold;
+  line-height: 4.5rem;
+}
+#footer {
+  position: fixed;
+  width: 100%;
+  height: 4.5rem;
+  bottom: 0;
+  background-color: #eee;
+  z-index: 9;
+}
+#footer:before {
+  height: 0.5rem;
+  width: 100%;
+  background-color: #fff;
+  display: block;
+  content: '';
+}
+#footer .btn {
+  width: 50%;
+  margin-top: 0.5rem;
+  float: left;
+}
+#footer .btn a {
+  display: block;
+  height: 1rem;
+  font-size: 1.1rem ;
+  padding-top: 2.25rem;
+  height: 1.5rem;
+  width: 2.5rem;
+  margin: 0 auto;
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  text-align: center;
+  color: #898989;
+}
+#footer .btn a:hover {
+  color: #2E9B95;
+}
+#footer .btn_home a {
+  background-image: url("../images/home_ico.png");
+  -webkit-background-size: contain;
+  background-size: contain;
+}
+#footer .btn_home a:hover {
+  background-image: url("../images/home_ico_hover.png");
+  -webkit-background-size: contain;
+  background-size: contain;
+}
+#footer .btn_user a {
+  background-image: url("../images/user_ico.png");
+  -webkit-background-size: contain;
+  background-size: contain;
+}
+#footer .btn_user a:hover {
+  background-image: url("../images/user_ico_hover.png");
+  -webkit-background-size: contain;
+  background-size: contain;
+}
+#pagemain {
+ 
+  padding-bottom: 5.5rem;
+}
+/*个人主页*/
+body.main #pagemain .banner img {
+  width: 100%;
+  height: auto;
+}
+body.main #pagemain .item {
+  font-size: 1.5rem;
+  clear: both;
+  height: 4.25rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+}
+body.main #pagemain .item:after {
+  content: "";
+  display: block;
+  background: url("../images/ico_next.png") no-repeat;
+  width: 1.4rem;
+  height: 2.2rem;
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  margin-top: -1.1rem;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.main #pagemain .item a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+body.main #pagemain .item .ico {
+  width: 4.25rem;
+  height: 4.25rem;
+  display: block;
+  float: left;
+  margin: 0 0.75rem;
+}
+body.main #pagemain .item .text {
+  padding-top: 1.25rem;
+  display: block;
+  color: #535353;
+  font-weight: bold;
+}
+body.main #pagemain .item-1 .ico {
+  background-image: url("http://shengyou.tnms.net/Public/Home/images/main_points-ico-01.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.main #pagemain .item-2 .ico {
+  background-image: url("../images/main-ico-02.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.main #pagemain .item-3 .ico {
+  background-image: url("../images/main-ico-03.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.main #pagemain .item-4 .ico {
+  background-image: url("../images/main-ico-04.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+/*风险分类健康指导*/
+body.sub_advise #pagemain ul {
+  height: auto;
+  overflow: hidden;
+  zoom: 1;
+}
+body.sub_advise #pagemain .item {
+  width: 44%;
+  padding: 0 3%;
+  float: left;
+  margin-bottom: 1rem;
+}
+body.sub_advise #pagemain .item a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+body.sub_advise #pagemain .item .ico {
+  width: 8.7rem;
+  height: 8.7rem;
+  display: block;
+  margin: 0.75rem auto;
+}
+body.sub_advise #pagemain .item .text {
+  text-align: center;
+  display: block;
+  color: #2e9b95;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+body.sub_advise #pagemain .item-1 .ico {
+  background-image: url("../images/sub_advise-ico-01.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.sub_advise #pagemain .item-2 .ico {
+  background-image: url("../images/sub_advise-ico-02.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.sub_advise #pagemain .item-3 .ico {
+  background-image: url("../images/sub_advise-ico-03.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.sub_advise #pagemain .item-4 .ico {
+  background-image: url("../images/sub_advise-ico-04.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.sub_advise #pagemain .item-5 .ico {
+  background-image: url("../images/sub_advise-ico-05.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.sub_advise #pagemain .item-6 .ico {
+  background-image: url("../images/sub_advise-ico-06.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.sub_advise #pagemain .item-7 .ico {
+  background-image: url("../images/sub_advise-ico-07.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+/*靶向预防干预要点*/
+body.main_points #pagemain .item {
+  font-size: 1.5rem;
+  clear: both;
+  height: 4.25rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+}
+body.main_points #pagemain .item:after {
+  content: "";
+  display: block;
+  background: url("../images/ico_next.png") no-repeat;
+  width: 1.4rem;
+  height: 2.2rem;
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  margin-top: -1.1rem;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.main_points #pagemain .item a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+body.main_points #pagemain .item .ico {
+  width: 4.25rem;
+  height: 4.25rem;
+  display: block;
+  float: left;
+  margin: 0 0.75rem 0 2rem;
+}
+body.main_points #pagemain .item .text {
+  padding-top: 1.25rem;
+  display: block;
+  color: #535353;
+  font-weight: bold;
+  text-align: center;
+  padding-right: 4.25rem;
+}
+body.main_points #pagemain .item-1 .ico {
+  background-image: url("../images/main_points-ico-01.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.main_points #pagemain .item-2 .ico {
+  background-image: url("../images/main_points-ico-02.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.main_points #pagemain .item-3 .ico {
+  background-image: url("../images/main_points-ico-03.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.main_points #pagemain .item-4 .ico {
+  background-image: url("../images/main_points-ico-04.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.main_points #pagemain .item-5 .ico {
+  background-image: url("../images/main_points-ico-05.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.main_points #pagemain .item-6 .ico {
+  background-image: url("../images/main_points-ico-06.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.main_points #pagemain .item-7 .ico {
+  background-image: url("../images/main_points-ico-07.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.main_points #pagemain .item-8 .ico {
+  background-image: url("../images/main_points-ico-08.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.medica .mes {
+  color: #999;
+  font-size: 1.1rem;
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  top: 49%;
+}
+body.medica ul {
+  height: auto;
+  overflow: hidden;
+  zoom: 1;
+}
+body.medica .item {
+  position: relative;
+  width: 80%;
+  -webkit-border-radius: 1em;
+  border-radius: 1em;
+  background-clip: padding-box;
+  margin: 2rem auto;
+  text-align: center;
+  background-color: #2e9b95;
+  font-size: 1.6rem;
+}
+body.medica .item a {
+  display: block;
+  width: 80%;
+  color: #333;
+  line-height: 1.5em;
+  padding: 0.3em 10%;
+  color: #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+body.medica .col-2 .item {
+  width: 45%;
+  float: left;
+  margin-left: 3.3%;
+}
+/*疾病列表*/
+body.usermedical #pagemain .mes {
+  color: #2E9B95;
+  text-align: center;
+  position: relative;
+  font-size: 1.1rem;
+  line-height: 1.5em;
+  background-color: #EEE;
+  margin: 0 1em 1em;
+  padding: 0.5em;
+}
+body.usermedical .mui-content #pagemain .mes .btn {
+  position: absolute;
+  width: 1.1rem;
+  height: 1.1rem;
+  right: 0.5rem;
+  top: 0.5rem;
+  background: url("../images/close.png") no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.usermedical .mui-content #pagemain .item {
+  position: relative;
+  padding: 1rem 1.25rem;
+}
+body.usermedical .mui-content #pagemain .item.odd {
+  background-color: rgba(220, 220, 220, 0.3);
+}
+body.usermedical .mui-content #pagemain .item.even {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+body.usermedical .mui-content #pagemain .item a {
+  display: block;
+  width: 100%;
+  color: #333;
+  font-size: 1.3rem;
+  line-height: 1.5em;
+}
+body.usermedical .mui-content #pagemain .item .title {
+  font-weight: bold;
+  padding-right: 1em;
+}
+body.usermedical .mui-content #pagemain .item .describe {
+  padding-top: 1em;
+  font-size: 1.2rem;
+  line-height: 1.5em;
+  zoom: 1;
+  overflow: hidden;
+  height: auto;
+}
+body.usermedical .mui-content #pagemain .item .describe b {
+  float: left;
+  color: #2e9b95;
+  padding-right: 2em;
+}
+body.usermedical .mui-content #pagemain .item .opts {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  color: #fff;
+  -webkit-border-radius: 0.5rem;
+  border-radius: 0.5rem;
+  background-clip: padding-box;
+  padding: 0.3em 0.8em;
+  font-size: 1.2rem;
+}
+body.usermedical .mui-content #pagemain .item .opts.normal {
+  background-color: #46b692;
+}
+body.usermedical .mui-content #pagemain .item .opts.risk {
+  background-color: #cc374b;
+}
+body.usermedical .mui-content #pagemain ul.col-2 .item {
+  width: 44%;
+  margin: 2em 0 0 4%;
+  float: left;
+}
+/*分类健康指导详细页*/
+body.advise_index .mui-content #pagemain .summary {
+  min-height: 6.5rem;
+}
+body.advise_index .mui-content #pagemain .summary .title {
+  font-size: 1.4rem;
+  line-height: 1.5rem;
+  padding: 1em 0;
+}
+body.advise_index .mui-content #pagemain .summary .title:before {
+  display: block;
+  width: 1.9rem;
+  height: 1.5rem;
+  content: "";
+  background: url(../img/guanzhu.png) no-repeat 75% 50%;
+  -webkit-background-size: contain;
+  background-size: contain;
+  float: left;
+  padding: 0 1rem 0 1.5rem;
+}
+body.advise_index .mui-content #pagemain .summary .text {
+  padding: 0 1em;
+  font-size: 1.4rem;
+  line-height: 1.5em;
+}
+body.advise_index .mui-content #pagemain .summary .text p {
+  padding-top: 0;
+}
+body.advise_index .mui-content #pagemain .body .title {
+  font-size: 1.5rem;
+  background: #bec8c8 url("../img/yaodian_ico_1.png") no-repeat 2.25rem;
+  -webkit-background-size: auto 50%;
+  background-size: auto 50%;
+  color: #333;
+  padding: 1rem 0 1rem 4rem;
+  font-weight: bold;
+}
+body.advise_index .mui-content #pagemain .body .text {
+  font-size: 1.3rem;
+  padding: 0 1em;
+  line-height: 1.5em;
+}
+body.advise_index .mui-content #pagemain .body .text ul {
+  padding: 1rem 0.5rem;
+}
+body.advise_index .mui-content #pagemain .body .text ul li {
+  padding: 0.25rem 0.5rem 0.25rem 2.75rem;
+  line-height: 1.5em;
+}
+body.advise_index .mui-content #pagemain .body .text ul li:before {
+  content: " ";
+  background: url("../images/ico_0.png") no-repeat;
+  -webkit-background-size: contain;
+  background-size: contain;
+  display: block;
+  float: left;
+  width: 0.55rem;
+  height: 0.95rem;
+  margin-left: -0.75rem;
+  margin-top: 0.5rem;
+}
+/*阶段建议详细页*/
+body.advise_stage .mui-content #pagemain .summary .title {
+  font-size: 1.5rem;
+  background: #ffffff url("../images/ico_4.png") no-repeat 2.25rem;
+  -webkit-background-size: auto 60%;
+  background-size: auto 60%;
+  color: #333;
+  padding: 1rem 0 1rem 5rem;
+  font-weight: bold;
+}
+body.advise_stage .mui-content #pagemain .summary .text {
+  padding: 1em 1.5em;
+  font-size: 1.2rem;
+  line-height: 1.5em;
+  min-height: 12rem;
+  background: #f7f7f7 url("../images/jieduan_bg_1.jpg") no-repeat 50% 50%;
+  -webkit-background-size: 30% auto;
+  background-size: 30% auto;
+}
+body.advise_stage .mui-content #pagemain .body .title {
+  font-size: 1.5rem;
+  background: #ffffff url("../images/ico_5.png") no-repeat 2.25rem;
+  -webkit-background-size: auto 60%;
+  background-size: auto 60%;
+  color: #333;
+  padding: 1rem 0 1rem 5rem;
+  font-weight: bold;
+}
+body.advise_stage .mui-content #pagemain .body .text {
+  padding: 1em 1.5em;
+  min-height: 19rem;
+  font-size: 1.1rem;
+  line-height: 1.5em;
+  background: #f7f7f7 url("../images/jieduan_bg_2.jpg") no-repeat 50% 50%;
+  -webkit-background-size: 30% auto;
+  background-size: 30% auto;
+}
+/*总体建议详细页*/
+body.advise_main .mui-content #pagemain {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+body.advise_main .mui-content #pagemain .text {
+  font-size: 1.2rem;
+  line-height: 1.5em;
+}
+body.advise_main .mui-content #pagemain .text ul {
+  padding: 1rem 0.5rem;
+}
+body.advise_main .mui-content #pagemain .text ul li {
+  padding: 0.25rem 0.5rem 0.15rem 1.25rem;
+  line-height: 1.5em;
+}
+body.advise_main #pagemain .text ul li:before {
+  content: " ";
+  background: url("../images/ico_0.png") no-repeat;
+  -webkit-background-size: contain;
+  background-size: contain;
+  display: block;
+  float: left;
+  width: 0.55rem;
+  height: 0.95rem;
+  margin-left: -0.75rem;
+  margin-top: 0.5rem;
+}
+/*封面*/
+body.cover #pagemain {
+  font-size: 1.2rem;
+  line-height: 2.3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+  display: none;
+}
+body.cover #pagemain ul li {
+  padding-left: 0.75rem;
+}
+body.cover #pagemain ul li:before {
+  content: " ";
+  background: url("../images/ico_0.png") no-repeat;
+  -webkit-background-size: 100% 100%;
+  background-size: 100% 100%;
+  display: block;
+  float: left;
+  width: 0.5rem;
+  height: 1.1rem;
+  margin-left: -0.75rem;
+  margin-top: 0.5rem;
+}
+body.cover #pagemain .btn {
+  font-size: 1.4rem;
+  background-color: #2e9b95;
+  text-align: center;
+  margin: 0.5rem auto;
+  color: #fff;
+  width: 50%;
+  -webkit-border-radius: 1em;
+  border-radius: 1em;
+  background-clip: padding-box;
+  font-weight: bold;
+}
+body.cover #pagemain .btn a {
+  color: #fff;
+}
+body.cover #footer {
+  display: none;
+}
+body.cover .cover_mark {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  left: 0;
+  top: 0;
+  background: url("../images/main_bg.jpg") no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.cover .cover_mark .cover_warp {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+body.cover .cover_mark .cover_warp .logo {
+  width: 19.35rem;
+  height: 11.1rem;
+  position: absolute;
+  right: 5%;
+  bottom: 12.5rem;
+  background: url("../images/logo.png") no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.cover .cover_mark .cover_warp .text {
+  width: 23.35rem;
+  height: 4.45rem;
+  position: absolute;
+  left: 50%;
+  margin-left: -11.675rem;
+  bottom: 4.4rem;
+  background: url("../images/text.png") no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+/*要点*/
+body.prevention_imgs li {
+  text-align: center;
+  background-color: #EEE;
+}
+body.prevention_imgs li img {
+  width: 96%;
+  height: auto;
+  padding-bottom: 0.5rem;
+}
+/*finduser*/
+body.finduser .form-login {
+  width: 86%;
+  margin: 3rem auto;
+  -webkit-border-radius: 0.5rem;
+  border-radius: 0.5rem;
+  background-clip: padding-box;
+  border: 1px solid #d2d2d2;
+}
+body.finduser .item {
+  height: 1rem;
+  padding: 1rem 0.5rem 1rem 3rem;
+  border-bottom: 1px solid #d2d2d2;
+  position: relative;
+}
+body.finduser .item input {
+  border: 0;
+  font-size: 1rem;
+  width: 100%;
+  height: 2.6rem;
+  margin-top: -0.8rem;
+}
+body.finduser .item label {
+  width: 2rem;
+  height: 2rem;
+  left: 0.5rem;
+  top: 0.5rem;
+  position: absolute;
+  -webkit-background-size: 100%;
+  background-size: 100%;
+}
+body.finduser .item.item_1 label {
+  background-image: url(../images/login_ico_1.png);
+}
+body.finduser .item.item_2 label {
+  background-image: url(../images/login_ico_2.png);
+}
+body.finduser .item.item_3 {
+  border: 0;
+}
+body.finduser .item.item_3 label {
+  background-image: url(../images/login_ico_3.png);
+}
+body.finduser .item.item_btn {
+  border: 0;
+  width: 86%;
+  padding-left: 0.5rem;
+  margin: 0 auto;
+}
+body.finduser .item.item_btn input {
+  background-color: #2e9b95;
+  -webkit-border-radius: 0.5rem;
+  border-radius: 0.5rem;
+  background-clip: padding-box;
+  color: #fff;
+  font-size: 1.3rem;
+}
+/*finduser*/
+body.userinfo .tipuser {
+  color: #F00;
+  text-align: center;
+  position: relative;
+  font-size: 1.1rem;
+  line-height: 1.5em;
+  background-color: #EEE;
+  margin: 0 1em 1em;
+  padding: 0.5em;
+}
+body.userinfo .info {
+  background: url("../images/userinfo_bg.jpg");
+  height: 5.2rem;
+  padding: 2rem;
+  -webkit-background-size: 100% 100%;
+  background-size: 100% 100%;
+  position: relative;
+}
+body.userinfo .info .header_img {
+  width: 5.2rem;
+  height: 5.2rem;
+  background: url("../images/ico/ico_head.png") no-repeat;
+  margin-right: 2rem;
+  float: left;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.userinfo .info .username {
+  font-size: 1.6rem;
+  color: #2e9b95;
+}
+body.userinfo .info .barcode {
+  font-size: 1.4rem;
+  position: absolute;
+  bottom: 2.5rem;
+  left: 9.2rem;
+  color: #434343;
+}
+body.userinfo .extend {
+  padding: 0 1rem 1rem;
+}
+body.userinfo .extend .title {
+  font-size: 1.5rem;
+  padding-left: 3.5rem;
+  color: #2e9b95;
+  background-repeat: no-repeat;
+  background-position: 0.25rem 50%;
+  line-height: 2.8rem;
+}
+body.userinfo .extend .text {
+  min-height: 4rem;
+  font-size: 1.4rem;
+}
+body.userinfo .advantage .title {
+  background-image: url(../images/ico/ico_3.png);
+  -webkit-background-size: contain;
+  background-size: contain;
+}
+body.userinfo .routine .title {
+  background-image: url(../images/ico/ico_2.png);
+  -webkit-background-size: contain;
+  background-size: contain;
+}
+body.userinfo .weak .title {
+  background-image: url(../images/ico/ico_1.png);
+  -webkit-background-size: contain;
+  background-size: contain;
+}
+/*修改密码*/
+body.password .item {
+  padding: 1rem;
+  font-size: 1rem;
+}
+body.password .item label {
+  display: block;
+  float: left;
+  font-size: 1rem;
+  width: 6em;
+  text-align: right;
+  padding: 0.5rem 1.5em;
+}
+body.password .item input {
+  padding: 0.5rem;
+  width: 14em;
+}
+body.password .item.item_btn {
+  padding-left: 10em;
+}
+body.password .item.item_btn input {
+  width: 15em;
+}
+/*个人主页*/
+body.down #pagemain .banner img {
+  width: 100%;
+  height: auto;
+}
+body.down #pagemain .item {
+  font-size: 1.5rem;
+  clear: both;
+  height: 4.25rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+}
+body.down #pagemain .item:after {
+  content: "";
+  display: block;
+  background: url("../images/ico_next.png") no-repeat;
+  width: 1.4rem;
+  height: 2.2rem;
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  margin-top: -1.1rem;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.down #pagemain .item a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+body.down #pagemain .item .ico {
+  width: 4.25rem;
+  height: 4.25rem;
+  display: block;
+  float: left;
+  margin: 0 0.75rem;
+}
+body.down #pagemain .item .text {
+  padding-top: 1.25rem;
+  display: block;
+  color: #535353;
+  font-weight: bold;
+}
+body.down #pagemain .item-1 .ico {
+  background-image: url("../images/main-ico-01.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.down #pagemain .item-2 .ico {
+  background-image: url("../images/main-ico-02.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.down #pagemain .item-3 .ico {
+  background-image: url("../images/main-ico-03.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+body.down #pagemain .item-4 .ico {
+  background-image: url("../images/main-ico-04.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}

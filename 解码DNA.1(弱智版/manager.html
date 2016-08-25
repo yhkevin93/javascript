@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<script type="text/javascript" src="js/md5.min.js"></script>
+		<script type="text/javascript" src="js/function.js"></script>
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+		<link href="css/mui.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">基因报告与健康指导</h1>
+			<a onclick="gotoPassword()" class="mui-icon mui-icon-forward mui-pull-right mui-icon-right-nav"></a>
+		</header>
+		<div class="mui-content">
+			<img id='homeimg' src='4.jpg' style=' width:100%; height:100%;' data-lazyload='http://shengyou.tnms.net/Public/Home/images/jiankangguwen.jpg' onload='图片缓存(this)' />
+
+			<ul class="mui-table-view">
+				<li id="全套" class="mui-table-view-cell mui-media">
+					<a onclick="openPoint()" href="javascript:;">
+						<img class="mui-media-object mui-pull-left" src="img/main-ico-01.png">
+						<div class="mui-media-body">
+							基因报告要点指导
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a onclick="opendanger()" href="javascript:;">
+						<img class="mui-media-object mui-pull-left" src="img/main-ico-02.png">
+						<div class="mui-media-body">
+							风险分类健康指导
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a onclick="opendna()" id="个性化" href="javascript:;">
+						<img class="mui-media-object mui-pull-left" src="img/main-ico-03.png">
+						<div class="mui-media-body">
+							基因体检综合指导
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a onclick="openyear()" id="个性化" href="javascript:;">
+						<img class="mui-media-object mui-pull-left" src="img/main-ico-04.png">
+						<div class="mui-media-body">
+							年度体检健康指导
+						</div>
+					</a>
+				</li>
+			</ul>
+
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			//修改密码按钮
+			function gotoPassword() {
+				mui.openWindow("password.html")
+			}
+			//基因报告要点指导
+			function openPoint() {
+				mui.openWindow("point.html")
+			}
+			//风险分类健康指导
+			//年度体检指导
+			function opendanger() {
+				mui.openWindow("danger.html")
+			}
+
+			//基因体检指导
+			function opendna() {
+				mui.openWindow("dna.html")
+			}
+
+			//年度体检指导
+			function openyear() {
+				mui.openWindow("year.html")
+			}
+
+			mui.init()
+			mui.plusReady(function() {
+				var id = document.getElementById("homeimg");
+				图片缓存(id);
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+		<script type="text/javascript" src="js/myfunction.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+
+	<body class="usermedical">
+
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 id="head" class="mui-title">肺腺癌风险</h1>
+		</header>
+		<div class="mui-content">
+			<div id="pagemain">
+ <ul id="medicalList">
+ </ul>
+			</div>
+
+		</div>
+
+		<script type="text/javascript">
+			mui.plusReady(function() {
+
+				var self = plus.webview.currentWebview();
+				var id = self.myid + "风险"
+
+				document.getElementById("head").innerHTML = id
+
+				$("#medicalList").append(yh.get(id))
+
+			})
+		</script>
+
+	</body>
+
+</html>
