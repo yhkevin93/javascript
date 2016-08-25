@@ -11,6 +11,32 @@
     </script>
 </head>
 <body>
-	
+	<header class="mui-bar mui-bar-nav">
+	    <h1 class="mui-title">功能实例</h1>
+	</header>
+	<div class="mui-content">
+	 <ul class="mui-table-view">
+	         <li  class="mui-table-view-cell">
+	             <a id="audio" class="mui-navigate-right">
+	                audio
+	             </a>
+	         </li>
+	         <li class="mui-table-view-cell">
+	             <a class="mui-navigate-right">
+	                  Item 2
+	             </a>
+	         </li>
+	         <li class="mui-table-view-cell">
+	             <a class="mui-navigate-right">
+	                  Item 3
+	             </a>
+	         </li>
+	     </ul>
+	</div>
+	<script>
+		document.getElementById("audio").addEventListener("tap",function(){
+			mui.openWindow("function/audio.html")
+		})
+	</script>
 </body>
 </html>
