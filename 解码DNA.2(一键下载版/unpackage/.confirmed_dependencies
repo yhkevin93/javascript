@@ -1,0 +1,18 @@
+{
+  "a.html": {
+    "href": "a.html",
+    "priority": 0
+  },
+  "index.html": {
+    "href": "index.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/jquery-3.0.0.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": [
+      "a.html"
+    ],
+    "priority": 0
+  }
+}

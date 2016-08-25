@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/mui.min.js"></script>
+		<!--<link rel="stylesheet" href="css/mui.css" />-->
+		<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+		<link rel="stylesheet" href="css/style.css" />
+		<script type="text/javascript" src="js/reload.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+	</head>
+
+	<body class="finduser">
+		<div id="header">
+
+			<div class="title">基因健康管理服务</div>
+			<a class="btn btn_left btn_return" href="javascript:window.history.go(-1)"></a>
+
+		</div>
+		<div id="pagemain">
+
+			<div id="top-alert" class="fixed alert alert-error" style="display: none;">
+				<button class="close fixed" style="margin-top: 4px;">&times;</button>
+				<div class="alert-content">这是内容</div>
+			</div>
+
+			<form id="form" class="form-horizontal">
+				<div class="form-login">
+					<div class="item item_1">
+						<label></label>
+						<input type="password" name="password" id="password" value="" placeholder="请输入密码（必须输入，初始密码123456）" />
+
+					</div>
+					<div class="item item_2">
+						<label></label>
+						<input type="text" name="name" id="name" value="" placeholder="请输入姓名（姓名与条码二选一）" />
+					</div>
+
+					<div class="item item_3">
+						<label></label>
+						<input type="text" name="barcode" id="barcode" value="" placeholder="请输入条码（姓名与条码二选一）" />
+					</div>
+				</div>
+			</form>
+			<div class="item item_btn">
+				<input type="hidden" value="2" name="mode" />
+				<input onclick="download()" type="submit" value="登 录">
+
+			</div>
+			<div id="footer">
+
+				<div class="btn btn_home">
+					<a href="#">首页</a>
+				</div>
+				<div class="btn btn_user">
+					<a href="#">我的</a>
+				</div>
+
+			</div>
+
+			<script>
+				var load, mask = mui.createMask(function() {
+					return false;
+				});
+				//plusReady事件后，自动创建load窗口；
+				mui.plusReady(function() {
+					main = plus.webview.currentWebview();
+					//setTimeout的目的是等待窗体动画结束后，再执行create webview操作，避免资源竞争，导致窗口动画不流畅；
+					setTimeout(function() {
+						load = mui.preload({
+							id: 'load',
+							url: 'loading.html',
+
+						});
+					}, 300);
+				});
+
+				function maskShow() {
+					load.show();
+				}
+
+				//有账号直接登陆
+				mui.plusReady(function() {
+					//只能通过点击input来获取页面
+					if(plus.storage.getItem("reload") == "yes") {
+						hrefArray.length = 0;
+						plus.storage.setItem("reload", "no");
+					} else {
+						if(plus.storage.getItem("name") || plus.storage.getItem("barcode")) {
+							plus.storage.setItem("first", "yes");
+
+							var name = plus.storage.getItem("name");
+
+							var password = plus.storage.getItem("password");
+
+							var barcode = plus.storage.getItem("barcode");
+
+							mui.openWindow("_downloads/Home/Index/down.html")
+
+							mui.toast("欢迎使用")
+						}
+					}
+
+				})
+
+				var name
+				var password
+				var barcode
+
+				function download() {
+					name = document.getElementById("name").value;
+					password = document.getElementById("password").value;
+					barcode = document.getElementById("barcode").value;
+
+					// 配置访问服务器参数
+					首页参数 = {
+						data: {
+							"name": name,
+							"password": password,
+							"barcode": barcode
+						},
+						dataType: 'text',
+						type: "POST",
+						success: function(data) {
+							//服务器返回响应
+							////console.log(data)
+							var dom = $('<div>').append(data);
+
+							//判断登陆账号是否是缓存账号，如果不是清楚缓存数据
+							if(name != plus.storage.getItem("name")) {
+								plus.storage.clear();
+							}
+
+							//判断账号密码是否正确，正确继续请求数据，错误则提示
+							if(dom.find(".title").html()) {
+								//console.log("账号正确，请求数据")
+
+								//账号正确开始解析首页
+								parse(data)
+
+								//清除之前的数据库
+								droptable();
+								//初始化数据库
+								initDatabase();
+								//打开load页面
+								maskShow();
+								//打开手机常亮
+								wakelock();
+								//保存更新时间
+								getTime();
+								mui.toast("登陆成功，第一次登陆会下载大量数据，请耐心等待")
+
+							} else {
+								mui.alert("账号或密码错误")
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							mui.toast("网络错误请稍后再试")
+								//console.log("主页面读取错误")
+								//console.log(type);
+
+						}
+					}
+					if(name == "" && password == "") {
+						mui.alert("请输入账号和密码");
+					}
+
+					if((name == "" && barcode == "") && password != "") {
+						mui.alert("请输入账号");
+					}
+					if(password == "" && (name != "" || barcode != "")) {
+						mui.alert("请输入密码");
+					}
+					if((barcode != "" || name != "") && password != "") {
+						mui.ajax('http://shengyou.tnms.net/Home/Index/findUser.html', 首页参数);
+					}
+				}
+
+				
+				var hrefArray = new Array;
+				//多少个链接
+				var counts = 0;
+				//判断过多少次
+				var chooseCounts = 0;
+				//解析地址
+				function parse(data) {
+					var dom = $('<div>').append(data);
+					//body a标签地址解析
+					dom.find("a").each(function() {
+						//组成href
+						var href = "http://shengyou.tnms.net" + $(this).attr("href")
+						var abc = $(this).attr("href")
+
+						var hrefPath = abc.replace(/%/g, "a")
+
+						//如果数组里有相同的地址则不继续请求
+						if(hrefArray.indexOf(href) > -1) {
+							chooseCounts++;
+							//console.log("判断了：" + chooseCounts);
+							////console.log("已读取")
+						} else {
+							//下载页面
+							createDownload(href, hrefPath)
+								//请求地址
+								//request(href)
+								//console.log(hrefPath)
+								//将请求过的地址添加到数组里
+							hrefArray.push(href);
+							counts++;
+							chooseCounts++;
+							//console.log("判断了：" + chooseCounts);
+
+						}
+						//console.log("请求页面数量" + counts);
+					})
+
+					//head css地址解析
+					dom.find("link").each(function() {
+						var csshref = "http://shengyou.tnms.net" + $(this).attr("href");
+						var csshrefPath = $(this).attr("href");
+						if(hrefArray.indexOf(csshref) > -1) {
+							chooseCounts++;
+							////console.log("已读取")
+							//console.log("判断了：" + chooseCounts);
+						} else {
+							//下载页面
+							createDownload(csshref, csshrefPath)
+								//请求地址
+								//request(csshref)
+								//console.log(csshref)
+								//将请求过的地址添加到数组里
+							hrefArray.push(csshref);
+
+							counts++;
+							chooseCounts++;
+							//console.log("判断了：" + chooseCounts);
+						}
+					})
+
+					//script js地址解析
+					dom.find("script").each(function() {
+						var jshref = "http://shengyou.tnms.net" + $(this).attr("src");
+						var jshrefPath = $(this).attr("src")
+						if(hrefArray.indexOf(jshref) > -1) {
+							chooseCounts++;
+							////console.log("已读取")
+							//console.log("判断了：" + chooseCounts);
+						} else {
+							//下载页面
+							createDownload(jshref, jshrefPath)
+								//请求地址
+								//request(jshref)
+								//console.log(jshref)
+								//将请求过的地址添加到数组里
+							hrefArray.push(jshref);
+							counts++;
+							chooseCounts++;
+							//console.log("判断了：" + chooseCounts);
+						}
+					});
+
+					//img地址解析
+					dom.find("img").each(function() {
+						var imghref = "http://shengyou.tnms.net" + $(this).attr("src");
+						var imghrefPath = $(this).attr("src");
+						if(hrefArray.indexOf(imghref) > -1) {
+							chooseCounts++;
+							////console.log("已读取")
+							//console.log("判断了：" + chooseCounts);
+						} else {
+							//下载页面
+							createDownload(imghref, imghrefPath)
+								//请求地址
+								//request(imghref)
+								//console.log(imghref)
+								//将请求过的地址添加到数组里
+							hrefArray.push(imghref);
+							counts++;
+							chooseCounts++;
+							//console.log("判断了：" + chooseCounts);
+						}
+					})
+
+				}
+
+				//请求方法
+				function request(href) {
+					参数 = {
+						dataType: 'html',
+						type: "GET",
+						success: function(data) {
+							//服务器返回响应
+							////console.log(data)
+							parse(data)
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+
+							//console.log("页面请求错误")
+							//console.log(type);
+
+						}
+					}
+					mui.ajax(href, 参数)
+				}
+
+				//	下载
+				var downloadCounts = 0;
+				var compares = 0;
+
+				function createDownload(href, url) {
+					var options = {
+						filename: "_downloads" + url
+					};
+					var dtask = plus.downloader.createDownload(href, options, function(d, status) {
+						// 下载完成
+						if(status == 200) {
+							//console.log("Download success: " + d.filename + "  //filesize:" + d.downloadedSize);
+							//如果不是css则打开文件，如果是css则用另外一种方法处理css文件
+							if(d.filename.indexOf("css") > -1) {
+								insert(downloadCounts, href);
+								openCssFile(d.filename)
+								downloadCounts++;
+
+								//console.log("已下载:" + downloadCounts)
+
+							} else if(d.filename.indexOf(".jpg") > -1 || d.filename.indexOf(".png") > -1 || d.filename.indexOf(".js") > -1) {
+								//console.log("图片下载")
+								insert(downloadCounts, href);
+								downloadCounts++;
+							} else {
+								openFile(d.filename)
+									//下载成功 将下载成功地址添加到数据库
+								insert(downloadCounts, href);
+								downloadCounts++;
+
+								//console.log("已下载:" + downloadCounts)
+
+								//判断下载完成进入首页
+								if(downloadCounts == 250) {
+									//进入首页
+									openW();
+									//关闭常亮
+									closewakelock();
+
+								}
+
+							}
+
+						} else {
+							//console.log("Download failed: " + status + d.filename);
+						}
+					});
+					//
+					//				dtask.setRequestHeader("charset", "utf-8");
+					dtask.start();
+				}
+				//2秒后如果下载数和两秒之前一样则进入首页
+				var set1 = setInterval(compare, 3000)
+
+				//判断是否继续下载
+				function compare() {
+					if(downloadCounts > 10) {
+						if(downloadCounts == compares) {
+							openW();
+							mui.toast("下载完成，欢迎使用")
+								//关闭定时器
+							clearInterval(set1);
+							//储存账号密码
+							if(barcode != "") {
+								plus.storage.setItem("barcode", barcode);
+							}
+							if(name != "") {
+								plus.storage.setItem("name", name);
+							}
+							plus.storage.setItem("password", password);
+						} else {
+							compares = downloadCounts;
+						}
+					}
+				}
+
+				//打开文件
+				function openFile(urlPath) {
+
+					plus.io.resolveLocalFileSystemURL(urlPath, function(entry) {
+						// 可通过entry对象操作test.html文件 
+
+						//保存网页
+						var htmlfile
+						var path
+						var wwwpath
+						entry.file(function(file) {
+							var fileReader = new plus.io.FileReader();
+							fileReader.readAsText(file, 'utf-8');
+
+							fileReader.onloadend = function(evt) {
+								//网页数据
+								htmlfile = evt.target.result
+									//   htmlfile =   htmlfile.replace(/<a.*?href=['"]([^"']*)['"][^>]*>/g,"fuck");
+								parse(htmlfile);
+								//获取本地路径(应该通过方法返回回来，但是做不来)
+								plus.io.requestFileSystem(plus.io.PUBLIC_DOWNLOADS, function(fs) {
+									// 可通过fs进行文件操作 
+									// 通过fs.root获取DirectoryEntry对象进行操作 
+									path = fs.root.fullPath;
+								}, function(e) {
+									alert("Request file system failed: " + e.message);
+								});
+
+								plus.io.requestFileSystem(plus.io.PRIVATE_WWW, function(fs) {
+									// 可通过fs进行文件操作 
+									// 通过fs.root获取DirectoryEntry对象进行操作 
+									wwwpath = fs.root.fullPath;
+									////console.log(wwwpath)
+								}, function(e) {
+									alert("Request file system failed: " + e.message);
+								});
+
+								var dom = $('<div>').append(evt.target.result);
+								//a标签文本修改
+								dom.find("a").each(function() {
+									//通过dom操作替换href replace是正则修改
+									////console.log("143行待修改，获取文件路劲通过io方法获取，并且需要添加判断，如果路径添加了一次，之后则不能继续修改路径	")
+									//最终本地路径拼接方法
+									if($(this).attr("href") != "javascript:window.history.go(-1)" && $(this).attr("href").indexOf("prevention_imgs") == -1 && $(this).attr("href").indexOf("javascript:void(0)") == -1) {
+										//通过判断来修改地址错误
+
+										var href = "file://" + path.substring(0, path.length - 1) + $(this).attr("href")
+											////console.log("拼接路径:" + href)
+										htmlfile = htmlfile.replace($(this).attr("href"), href);
+
+									}
+								})
+
+								//link标签文本修改(无脑方法，修改办法：把css地址动态获取)
+								dom.find("link").each(function() {
+									var csshref = "file://" + path.substring(0, path.length - 1) + $(this).attr("href");
+									htmlfile = htmlfile.replace($(this).attr("href"), csshref);
+								})
+
+								//script标签文本修改
+								dom.find("script").each(function() {
+									var href = "file://" + path.substring(0, path.length - 1) + $(this).attr("src");
+									htmlfile = htmlfile.replace($(this).attr("src"), href);
+								})
+
+								//img标签文本修改
+								dom.find("img").each(function() {
+									var href = "file://" + path.substring(0, path.length - 1) + $(this).attr("src");
+									htmlfile = htmlfile.replace($(this).attr("src"), href);
+								})
+
+								//meta标签修改
+								htmlfile = htmlfile.replace('<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">', '<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" charset=utf-8>');
+
+								/*特殊标签修改归类*/
+								/*1.User/index页面跳转问题修改*/
+								expath = "file://" + path.substring(0, path.length - 1) + "/Home/User/index.html"
+								if(urlPath == "_downloads/Home/User/modifypassword.html" || urlPath == "_downloads/Home/User/main_points.html" || urlPath == "_downloads/Home/User/sub_advise.html" || urlPath == "_downloads/Home/advise/index/id/1.html" || urlPath == "_downloads/Home/advise/index/id/2.html") {
+									htmlfile = htmlfile.replace(/javascript:window.history.go\(-1\)/, expath);
+								}
+
+								/*2.两个链接相同标签问题修改并且把%符号修改问字母a解决文件打开错误*/
+								var imghref = path.substring(0, path.length - 1) + '/Home/User/prevention_imgs/ids'
+									//htmlfile = htmlfile.replace(/window.history.go\(-1\)/, "mui.back()");
+								htmlfile = htmlfile.replace(/%/g, "a");
+								htmlfile = htmlfile.replace(/\/Home\/User\/prevention_imgs\/ids/g, imghref);
+
+								/*3 index/2页面右键绑定问题*/
+								if(urlPath == "_downloads/Home/advise/index/id/2.html") {
+									var preventionhref = path.substring(0, path.length - 1) + '/Home/User/prevention_imgs'
+									htmlfile = htmlfile.replace(/\/Home\/User\/prevention_imgs/g, preventionhref);
+								}
+
+								/*4 修改3个问题返回按钮*/
+								//1级页面返回登陆页
+								if(urlPath == "_downloads/Home/Index/down.html" || urlPath == "_downloads/Home/Index/index.html") {
+									//var changehref = "file://" + wwwpath + 'index.html'
+									var changehref = 'javascript:mui.openWindow("_www/index.html")'
+									htmlfile = htmlfile.replace(/javascript:window.history.go\(-1\)/, changehref);
+									var newsrc1 = "file://" + wwwpath + "js/reload.js"
+									var oldSrc1 = "file://" + path.substring(0, path.length - 1) + "/Public/static/jquery-1.10.2.min.js";
+									htmlfile = htmlfile.replace(oldSrc1, newsrc1);
+									var newsrc2 = "file://" + wwwpath + "js/mui.js";
+									var oldsrc2 = "file://" + path.substring(0, path.length - 1) + "/Public/static/json3.min.js";
+									htmlfile = htmlfile.replace(oldsrc2, newsrc2);
+									//								var jqpath = "file://" + wwwpath + "js/jquery-3.0.0.min.js";
+									//								var newscript = '<script src="'+ newsrc2 +'">' + '</sciprt>' + '<script src="'+ jqpath +'">' 
+									//								var oldscript = '<script src="'+ newsrc2 +'">'
+									//								htmlfile = htmlfile.replace(oldscript,newscript);
+									var changeTime = plus.storage.getItem("date")
+									var oldA = '<li class="item item-3"><a href="' + 'file://' + path.substring(0, path.length - 1) + '/Home/Medication/index.html"><span class="ico"></span><span class="text">个性化用药基因检测</span></a></li>'
+									var newA = '<li class="item item-3"><a href="' + 'file://' + path.substring(0, path.length - 1) + '/Home/Medication/index.html"><span class="ico"></span><span class="text">个性化用药基因检测</span></a></li>' + '<li class="item item-1"><a onclick="reload()"><span class="ico"></span><span class="text">更新数据</span><span style="float: left;font-size: 15px;">上次更新时间：' + changeTime + '</span></a></li>'
+									htmlfile = htmlfile.replace(oldA, newA);
+									//  console.log(htmlfile);
+								}
+								//二级页面返回一级页面
+								if(urlPath == "_downloads/Home/User/info.html" || urlPath == "_downloads/Home/Single/index.html" || urlPath == "_downloads/Home/Medication/index.html") {
+									var changehref = "file://" + path.substring(0, path.length - 1) + '/Home/Index/down.html'
+									htmlfile = htmlfile.replace(/javascript:window.history.go\(-1\)/, changehref);
+								}
+								//三级页面返回二级页面(修改后有问题，会把所有返回链接修改)
+								if(urlPath == "_downloads/Home/User/index.html") {
+									var changehref = "file://" + path.substring(0, path.length - 1) + '/Home/User/info.html'
+									htmlfile = htmlfile.replace(/javascript:window.history.go\(-1\)/, changehref);
+								}
+								//修改密码页
+								if(urlPath == "_downloads/Home/User/modifypassword.html") {
+									var action = 'action="http://shengyou.tnms.net/Home/User/modifypassword.html"';
+									htmlfile = htmlfile.replace(/action=""/, action);
+								}
+
+								var oldtitle = dom.find(".title").html();
+								//							6.所有预防指导统一
+								if(oldtitle.indexOf("预防指导") > -1) {
+									var title = "预防指导";
+									htmlfile = htmlfile.replace(oldtitle, title);
+								}
+
+								////console.log(htmlfile)
+								//     写入文件
+								entry.createWriter(function(writer) {
+									writer.onwrite = function(e) {
+										//console.log("write success");
+									}
+									writer.write(htmlfile);
+								})
+
+							}
+
+						});
+
+					}, function(e) {
+						//console.log("打开" + urlPath)
+						alert("Resolve file URL failed: " + e.message);
+					});
+				}
+
+				//CSS数据处理
+				function openCssFile(urlPath) {
+
+					plus.io.resolveLocalFileSystemURL(urlPath, function(entry) {
+						// 可通过entry对象操作test.html文件 
+
+						//保存网页
+						var htmlfile
+						var path
+						entry.file(function(file) {
+							var fileReader = new plus.io.FileReader();
+							fileReader.readAsText(file, 'utf-8');
+
+							fileReader.onloadend = function(evt) {
+								//网页数据
+								htmlfile = evt.target.result
+									//   htmlfile =   htmlfile.replace(/<a.*?href=['"]([^"']*)['"][^>]*>/g,"fuck");
+
+								//获取本地路径
+								plus.io.requestFileSystem(plus.io.PUBLIC_DOWNLOADS, function(fs) {
+									// 可通过fs进行文件操作 
+									// 通过fs.root获取DirectoryEntry对象进行操作 
+									path = fs.root.fullPath;
+								}, function(e) {
+									alert("Request file system failed: " + e.message);
+								});
+								//获取所有png/jpg文件路径
+								var aRegex = /images\S*(png|jpg)/g;
+
+								aRegexs = htmlfile.match(aRegex)
+
+								for(var i = 0; i < aRegexs.length; i++) {
+									var href = "http://shengyou.tnms.net/Public/Home/" + aRegexs[i];
+
+									var hrefpath = "/Public/Home/" + aRegexs[i];
+									//console.log(hrefpath)
+									createDownload(href, hrefpath)
+								}
+
+							}
+
+						});
+
+					}, function(e) {
+						//console.log("打开" + urlPath)
+						alert("Resolve file URL failed: " + e.message);
+					});
+				}
+				//操作本地数据库储存已下载地址来进行
+				//创建数据库
+				function createDatabase() {
+					var database = openDatabase("download", "1.0", "已下载", 1024 * 1024);
+
+					return database;
+				}
+				//创建数据表
+				function initDatabase() {
+					var db = createDatabase();
+					db.transaction(function(misson) {
+						misson.executeSql("create table if not exists stu (id REAL UNIQUE, name TEXT)", [],
+							function(tx, result) {
+								//console.log('创建stu表成功');
+							},
+							function(tx, error) {
+								alert('创建stu表失败:' + error.message);
+
+							})
+					})
+				}
+				//插入数据
+				function insert(id, msg) {
+					var db = createDatabase()
+					db.transaction(function(misson) {
+						misson.executeSql(
+							"insert into stu (id, name) values(?, ?)", [id, msg],
+							function() {
+								//console.log('添加数据成功');
+							},
+							function(tx, error) {
+								//console.log('添加数据失败: ' + error.message);
+							});
+					});
+				}
+				//查询数据
+				function query() {
+					var db = createDatabase()
+					db.transaction(function(tx) {
+						tx.executeSql(
+							"select * from stu", [],
+							function(tx, result) { //执行成功的回调函数
+								//在这里对result 做你想要做的事情吧...........
+								////console.log(result.rows.item(233).name);
+								//console.log(result.rows.length)
+								//console.log("查询成功")
+							},
+							function(tx, error) {
+								//console.log('查询失败: ' + error.message);
+							});
+					});
+				}
+
+				//删除数据表
+				function droptable() {
+					var db = createDatabase();
+					db.transaction(function(tx) {
+						tx.executeSql('drop table stu');
+					});
+				}
+
+				//开起一直唤醒状态
+				function wakelock() {
+					plus.device.setWakelock(true);
+					//console.log("开启一直唤醒")
+				}
+
+				//关闭唤醒状态
+				function closewakelock() {
+					plus.device.setWakelock(false);
+					//console.log("关闭一直唤醒")
+				}
+				//获取唤醒状态
+				function iswakelock() {
+					//console.log(plus.device.isWakelock());
+				}
+
+				function openW() {
+					mui.openWindow("_downloads/Home/Index/down.html")
+				}
+
+				//保存时间
+				function getTime() {
+					//保存修改时间
+					var myDate = new Date();
+					var h = myDate.getHours();
+					var m = myDate.getMinutes();
+					var s = myDate.getSeconds();
+					var y = myDate.getFullYear();
+					var mo = myDate.getMonth() + 1;
+					var day = myDate.getDate();
+					var changeDate = y + "/" + mo + "/" + day + "  " + h + ':' + m
+						// console.log(changeDate)
+					plus.storage.setItem("date", changeDate);
+					console.log("时间是" + plus.storage.getItem("date"))
+				}
+			</script>
+
+	</body>
+
+</html>

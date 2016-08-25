@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script> 
+		<link rel="stylesheet" href="css/style.css" />
+		<style>
+			h5 {
+				margin-bottom: 10px;
+				text-align: center;
+			}
+			
+			.mui-demo-container {
+				background-color: #fff;
+				padding: 10px 15px;
+			}
+			
+			.mui-btn-block {
+				padding: 5px 0;
+			}
+			
+			#progress {
+				text-align: center;
+				margin: 0 auto;
+			
+			}
+		</style>
+	</head>
+
+<body class="down">
+<div id="header">
+    
+    <div class="title">下载中</div>
+   
+
+</div>
+<div id="pagemain">
+    
+    <div class="banner"><img src="img/jiedu.jpg"> </div>
+    <div class="mui-demo-container">
+				<div>
+					
+					<p class="mui-progressbar mui-progressbar-infinite"></p>
+					<h5 id="download">已经下载DNA：0个</h5>
+				</div>
+			</div>
+
+</div>
+<script>
+       setInterval(query,1000)
+       
+		function createDatabase() {
+				var database = openDatabase("download", "1.0", "已下载", 1024 * 1024);
+
+				return database;
+			}
+		
+		//查询数据
+			function query() {
+				var db = createDatabase()
+				db.transaction(function(tx) {
+					tx.executeSql(
+						"select * from stu", [],
+						function(tx, result) { //执行成功的回调函数
+							//在这里对result 做你想要做的事情吧...........
+							//console.log(result.rows.item(233).name);
+							document.getElementById("download").innerHTML = "已经下载DNA: " + result.rows.length +"个";
+                             
+						},
+						function(tx, error) {
+							console.log('查询失败: ' + error.message);
+						});
+				});
+			}
+
+</script>
+
+</body>
+</html>
