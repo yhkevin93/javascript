@@ -10,18 +10,51 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">audio</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">audio</h1>
 		</header>
 		<div class="mui-content">
-		    
+			<div class="mui-content">
+
+				<body>
+					<input type="button" value="Start Record" onclick="startRecord();" />
+					<br/>
+					<input type="button" value="Stop Record" onclick="stopRecord();" />
+				</body>
+			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<!--
+        	作者：394713927@qq.com
+        	时间：2016-08-26
+        	描述：语音功能，让用户录一段时间，播放给他听
+        -->
 		<script type="text/javascript">
-			mui.init({
-				swipeBack:true,
-				
-			})
+			// 扩展API加载完毕后调用onPlusReady回调函数 
+			document.addEventListener("plusready", onPlusReady, false);
+			var r = null;
+			// 扩展API加载完毕，现在可以正常调用扩展API 
+			function onPlusReady() {
+				r = plus.audio.getRecorder();
+			}
+
+			function startRecord() {
+				if(r == null) {
+					alert("Device not ready!");
+					return;
+				}
+				r.record({
+					filename: "_doc/audio/"
+				}, function() {
+					alert("Audio record success!");
+				}, function(e) {
+					alert("Audio record failed: " + e.message);
+				});
+			}
+
+			function stopRecord() {
+				r.stop();
+			}
 		</script>
 	</body>
 

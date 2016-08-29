@@ -1,42 +1,64 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <title></title>
-    <script src="js/mui.min.js"></script>
-    <link href="css/mui.min.css" rel="stylesheet"/>
-    <script type="text/javascript" charset="utf-8">
-      	mui.init();
-    </script>
-</head>
-<body>
-	<header class="mui-bar mui-bar-nav">
-	    <h1 class="mui-title">功能实例</h1>
-	</header>
-	<div class="mui-content">
-	 <ul class="mui-table-view">
-	         <li  class="mui-table-view-cell">
-	             <a id="audio" class="mui-navigate-right">
-	                audio
-	             </a>
-	         </li>
-	         <li class="mui-table-view-cell">
-	             <a class="mui-navigate-right">
-	                  Item 2
-	             </a>
-	         </li>
-	         <li class="mui-table-view-cell">
-	             <a class="mui-navigate-right">
-	                  Item 3
-	             </a>
-	         </li>
-	     </ul>
-	</div>
-	<script>
-		document.getElementById("audio").addEventListener("tap",function(){
-			mui.openWindow("function/audio.html")
-		})
-	</script>
-</body>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/mui.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">功能实例</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a id="audio" class="mui-navigate-right">
+						音频
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="share" class="mui-navigate-right">
+						分享
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="OAuth" class="mui-navigate-right">
+						第三方登陆
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="event" class="mui-navigate-right">
+						系统事件
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="barcode" class="mui-navigate-right">
+						扫描二维码
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="message" class="mui-navigate-right">
+						通讯
+					</a>
+				</li>
+			</ul>
+		</div>
+	
+		<script>
+			mui(".mui-table-view").on("tap", "a", function() {
+				var idURL = "function/" + this.getAttribute("id") + ".html";
+				var id = this.getAttribute("id");
+				console.log("打开" + id + "功能")
+				mui.openWindow(idURL, id);
+			})
+		</script>
+	</body>
+
 </html>
