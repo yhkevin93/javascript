@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+	</head>
+<!--
+	作者：394713927@qq.com
+	时间：2016-08-29
+	描述：地理位置信息获取
+-->
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">位置信息</h1>
+		</header>
+		<div class="mui-content">
+		    <ul class="mui-table-view">
+		            <li class="mui-table-view-cell">
+		                <a id="longitude" class="mui-navigate-right">
+		                    经度：
+		                </a>
+		            </li>
+		            <li class="mui-table-view-cell">
+		                <a id="latitude" class="mui-navigate-right">
+		                     纬度：
+		                </a>
+		            </li>
+		            <li class="mui-table-view-cell">
+		                <a id="altitude" class="mui-navigate-right">
+		                     高度：
+		                </a>
+		            </li>
+		        </ul>
+		       
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function(){
+				plus.geolocation.getCurrentPosition(function(p){
+					document.getElementById("longitude").innerHTML = "经度："+p.coords.longitude;
+					document.getElementById("latitude").innerHTML = "纬度："+p.coords.latitude;
+					document.getElementById("altitude").innerHTML = "高度："+p.coords.altitude;
+				
+				
+				},function(e){
+					alert("geolocation get fails");
+				},{provider:'baidu'});
+			})
+			
+			function
+		</script>
+	</body>
+
+</html>
