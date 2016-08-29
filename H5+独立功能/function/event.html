@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">系统事件</h1>
+		</header>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			document.addEventListener("plusready", ready, false)
+
+			function ready() {
+				//前台退后台
+				document.addEventListener("pause", ispause, false);
+				//后台回前台
+				document.addEventListener("resume", isresume, false);
+				//网络变化
+				document.addEventListener("netchange", netchanged, false)
+				//滚动到窗口底部
+				document.addEventListener( "plusscrollbottom",bottom, false );
+			}
+
+			function ispause() {
+				console.log("从前台切换到后台")
+			}
+
+			function isresume() {
+				console.log("从后台切换到前台")
+			}
+
+			function netchanged() {
+				var nt = plus.networkinfo.getCurrentType();
+				switch(nt) {
+					case plus.networkinfo.CONNECTION_ETHERNET:
+					case plus.networkinfo.CONNECTION_WIFI:
+						alert("连接到wifi");
+						break;
+					case plus.networkinfo.CONNECTION_CELL2G:
+					case plus.networkinfo.CONNECTION_CELL3G:
+					case plus.networkinfo.CONNECTION_CELL4G:
+						alert("不在wifi环境内");
+						break;
+					default:
+						alert("请联网");
+						break;
+				}
+			}
+			
+			function bottom(){
+				console.log("滚动到底部")
+			}
+		</script>
+	</body>
+
+</html>

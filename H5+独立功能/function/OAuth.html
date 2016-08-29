@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<script src="../js/mui.min.js"></script>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">第三方登陆</h1>
+		</header>
+		<div id="oauth" class="mui-content">
+
+			<button onclick="yh.OAuth.login()">第三方登陆</button>
+			<button onclick="yh.OAuth.getUserInfo()">获取用户信息</button>
+			<button onclick="yh.OAuth.logout()">注销</button>
+		</div>
+		<!--
+            	作者：394713927@qq.com
+            	时间：2016-08-26
+            	描述：第三方登陆集成方法，首先登陆，登陆后自动获取userinfo给客户展示获取到的数据
+           -->
+		<script type="text/javascript">
+			//服务
+			var auths;
+
+			function plusReady() {
+				plus.oauth.getServices(function(services) {
+					auths = services;
+
+					console.log("获取服务成功:" + JSON.stringify(auths))
+				}, function(e) {
+					alert("获取分享服务列表失败：" + e.message + " - " + e.code);
+				});
+			}
+			document.addEventListener('plusready', plusReady, false);
+
+			var yh = {};
+			//第三方登陆
+			yh.OAuth = {
+				//登陆
+				login: function() {
+					auths[0].login(function() {
+						console.log("login success");
+					}, function() {
+						console.log("login fail");
+					})
+				},
+				//获得用户信息
+				getUserInfo: function() {
+					auths[0].getUserInfo(function(e) {
+						console.log("get success");
+						var result = e.target.authResult;
+						console.log("Result:" + JSON.stringify(result));
+						var other = e.target.userInfo;
+						console.log("userinfo:" + JSON.stringify(other));
+					}, function() {
+						console.log("get fail");
+					})
+				},
+				//注销
+				logout: function() {
+					auths[0].logout(function(e) {
+						console.log("注销成功");
+					}, function(e) {
+						console.log("注销失败");
+					})
+				}
+
+				//结束括号
+			}
+
+			//							function login(){
+			//								auths[0].login(function(){
+			//									console.log("login success");
+			//								},function(){
+			//									console.log("login fail");
+			//								})
+			//							}
+			//							
+			//							//获取用户信息
+			//							function getUserInfo(){
+			//								auths[0].getUserInfo(function(){
+			//									console.log("get success")
+			//								},function(){
+			//									console.log("get fail")
+			//								})
+			//							}
+			//			
+			//			var yh = {};
+			//			yh.data ={
+			//				fuck:function(name){
+			//					console.log("fuck" +name);
+			//				},
+			//				
+			//			}
+		</script>
+	</body>
+
+</html>
