@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        
+	<script type="text/javascript" src="http://sandbox.runjs.cn/uploads/rs/229/pl7pcrz1/three.js"></script>
+    </head>
+    
+	<body style="background-color:#fff;">
+        <div id="container" style="width: 900px; height: 900px;"></div>
+        <script type="text/javascript">
+            window.onload = function() {
+                var renderer = null; //设置定时器
+                var scene = null; //设置场景
+                var camera = null; //设置视角（照相机）
+                var cube = null; //设置立方体
+                var animating = false; //设置定时器
+
+                //获取承载canvas的容器
+                var container = document.getElementById("container");
+
+                //创建ThreeJs的渲染器，并添加到容器之中
+                renderer = new THREE.WebGLRenderer({
+                    antialias: true
+                }); //创建一个抗锯齿（antialias）模式的渲染器
+                renderer.setSize(container.offsetWidth, container.offsetHeight); //设置渲染器的大小
+                container.appendChild(renderer.domElement); //把渲染器（canvas）添加到容器（container）之中
+
+                //创建ThreeJs的场景
+                scene = new THREE.Scene();
+
+                //创建相机，添加进场景中
+                camera = new THREE.PerspectiveCamera(30, container.offsetWidth / container.offsetHeight, 1, 4000);
+                camera.position.set(0, 0, 4.5); //设置视野位置，与我们需要看到的物体越近（在这里是原点），图像显示越大，但是过于靠近会破面，将看不到东西（因为我们在物体内部了）
+                //camera视角位置设置是对于scene而言的，实际上camera给用户的体验永远的是和视口（canvas），如果设置的远离物体的话，对应的图像
+                //就会变小
+
+                //创建一个平行光源照射到物体上(如果没有光源，场景将会是黑暗的，看不到颜色)
+                var light = new THREE.DirectionalLight(0xffffff, 1.0); //设置一个平行光源，光源颜色为白色#fff，也可以设置为其他颜色，第二个参数为光亮强度
+                light.position.set(0, 0, 1); //设置光源位置，光源的方向是光源位置指向场景原点
+                scene.add(light); //给场景添加光源
+
+                //创建一个接受光源并带有纹理映射的立方体，并添加到场景中
+                //首先，创建一个带有纹理映射的立方体
+                var mapUrl = "http://sandbox.runjs.cn/uploads/rs/229/pl7pcrz1/ManImg.png"; //获取纹理映射的图片地址
+                var map = THREE.ImageUtils.loadTexture(mapUrl); //把纹图片加载到纹理映射
+
+                //创建一个Phone材质来处理着色，并传递给文理映射
+                var material = new THREE.MeshPhongMaterial({
+                    map: map
+                }); //Phone是比较优秀的纹理算法模式之一，现在把纹理映射作为参数初始化我们的纹理
+
+                //创建一个立方体的几何体
+                var geometry = new THREE.CubeGeometry(1, 1, 1);
+
+                //将几何体和材质放到一个网格中
+                cube = new THREE.Mesh(geometry, material);
+
+                //设置网格在场景中的朝向，否则我们将不会看到立方体的形状
+                cube.rotation.x = Math.PI / 5;
+                cube.rotation.y = Math.PI / 5;
+
+                //将立方体网格添加到场景中
+                scene.add(cube);            
+
+                //添加处理鼠标事件的函数，用于控制动画开关
+                // addMouseHander();
+
+                run();
+
+                //循环渲染场景
+
+                function run() {
+                    //渲染场景
+                    renderer.render(scene, camera);
+
+                    //旋转立方体
+                    Initerval();
+                }
+
+                function Initerval() {
+                    renderer.render(scene,camera);
+                    cube.rotation.y -= 0.01;
+                    cube.rotation.x -= 0.01;
+                    cube.rotation.z -= 0.01;
+                    requestAnimationFrame(Initerval);
+                }
+            }
+        </script>
+    </body>
+
+</html>
