@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+	</head>
+<!--
+	作者：394713927@qq.com
+	时间：2016-08-30
+	描述：推送
+-->
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">推送</h1>
+		</header>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+		//TODO 推送需要集成第三方推送插件，但是HBUILDER没有做好，需要自己去论坛里找
+			mui.init()
+			document.addEventListener( "plusready", function(){
+	// 扩展API加载完毕，现在可以正常调用扩展API
+	// 添加监听从系统消息中心点击某条消息启动应用事件
+	plus.push.addEventListener( "click", function ( msg ) {
+		// 分析msg.payload处理业务逻辑 
+		alert( "You clicked: " + msg.content ); 
+	}, false ); 
+}, false );
+
+ 
+    function push(){
+    	plus.push.getAllMessage();
+    }
+		</script>
+	</body>
+
+</html>

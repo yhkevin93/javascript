@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+	</head>
+<!--
+	作者：394713927@qq.com
+	时间：2016-08-29
+	描述：摄像头调用
+-->
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">相机</h1>
+		</header>
+		<div class="mui-content">
+			<button type="button" onclick="takePhotos()" class="mui-btn mui-btn-blue mui-btn-outlined">照相</button>
+			<button class="mui-btn mui-btn-blue mui-btn-outlined" onclick="videoCapture()">摄像</button><br/>
+			<button class="mui-btn mui-btn-blue mui-btn-outlined" onclick="stopCapture()">停止摄像</button>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function() {
+
+				})
+				//照相
+			function takePhotos() {
+				var cmr = plus.camera.getCamera();
+				cmr.captureImage(function(path) {
+					console.log(path);
+				}, function(error) {
+					console.log("失败原因:" + error.message)
+				})
+			}
+
+			function videoCapture() {
+				cmr = plus.camera.getCamera();
+				var res = cmr.supportedVideoResolutions[0];
+				var fmt = cmr.supportedVideoFormats[0];
+				console.log("Resolution: " + res + ", Format: " + fmt);
+				cmr.startVideoCapture(function(path) {
+						alert("Capture video success: " + path);
+					},
+					function(error) {
+						alert("Capture video failed: " + error.message);
+					}, {
+						resolution: res,
+						format: fmt
+					}
+				);
+				// 拍摄10s后自动完成 
+				setTimeout(stopCapture, 10000);
+			}
+			// 停止摄像
+			function stopCapture() {
+				console.log("stopCapture");
+				cmr.stopVideoCapture();
+			}
+		</script>
+	</body>
+
+</html>

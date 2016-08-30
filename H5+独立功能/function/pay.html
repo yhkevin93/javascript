@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		  <style type="text/css">
+            .head {
+                margin-top: 10px;
+            }
+            .head img{
+                width: 120px;
+                height: 120px;
+                margin-left: calc(50% - 60px);
+            }
+            .top {
+                margin-top: 40px;
+            }
+            .weixin {
+                width: 60px;       
+                height: 60px; 
+                margin-left: calc(50% - 30px);
+                background: url(../img/icon-weixin.png.jpg);   
+            }
+            .zhifubao {
+                width: 60px;
+                height: 60px;
+                margin-left: calc(50% - 30px); 
+                background: url(../img/alipay.jpg.png);  
+            }
+        </style>
+	</head>
+
+	<body>
+		 <header class="mui-bar mui-bar-nav white">
+            <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+            <h1 class="mui-title">支付</h1>
+        </header>
+         <div class="mui-content">
+            <div class="top" id="testLogin">
+                <input type="button" class="weixin" id="weixin"/>
+                <input type="button" class="zhifubao" id="zhifubao"/>
+            </div>
+        </div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			   mui.plusReady(function() {  
+            // 获取支付通道
+                plus.payment.getChannels(function(channels){
+                	console.log(channels);
+                    aliChannel=channels[0];
+                wxChannel=channels[1];
+                },function(e){
+                 alert("获取支付通道失败："+e.message);
+                });
+        })
+			   
+			    document.getElementById('weixin').addEventListener('tap',function() {
+            console.log("微信");
+            pay('wxpay');
+        })
+        document.getElementById('zhifubao').addEventListener('tap',function() {
+            console.log("zhifubao");
+            pay('alipay'); 
+        })
+        //TODO 支付后台API在这里填写
+            var ALIPAYSERVER='http://demo.dcloud.net.cn/helloh5/payment/alipay.php?total=';
+        var WXPAYSERVER='http://demo.dcloud.net.cn/helloh5/payment/wxpay.php?total=';
+        // 2. 发起支付请求
+        function pay(id){
+                // 从服务器请求支付订单
+                var PAYSERVER='';
+                if(id=='alipay'){
+                PAYSERVER=ALIPAYSERVER;
+                channel = aliChannel;
+            }else if(id=='wxpay'){
+                    PAYSERVER=WXPAYSERVER;
+                    channel = wxChannel;
+                }else{
+                    plus.nativeUI.alert("不支持此支付通道！",null,"捐赠");
+                    return;
+             }
+                var xhr=new XMLHttpRequest();
+                xhr.onreadystatechange=function(){
+                    switch(xhr.readyState){
+                        case 4:
+                        if(xhr.status==200){
+                            plus.payment.request(channel,xhr.responseText,function(result){
+                                plus.nativeUI.alert("支付成功！",function(){
+                                back();
+                            });
+                            },function(error){
+                                plus.nativeUI.alert("支付失败：" + error.code);
+                            });
+                        }else{
+                            alert("获取订单信息失败！");
+                        }
+                        break;
+                    default:
+                    break;
+                }
+         }
+            xhr.open('GET',PAYSERVER);
+            xhr.send();
+    }
+
+		</script>
+	</body>
+
+</html>
