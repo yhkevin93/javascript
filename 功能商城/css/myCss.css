@@ -1,0 +1,22 @@
+.yh_next {
+	width: 60px;
+	height: 60px;
+	border: 1px soild #f00;
+	background: url(../img/next.png);
+	background-size: 100%;
+	bottom: 20px;
+	right: 20px;
+	position: fixed;
+}
+
+.yh_function {
+	position: fixed;
+	left: 20px;
+	bottom: 200px
+}
+
+.yh_test {
+	clear: both;
+	margin-left: 20px;
+	padding-top: 20px;
+}
