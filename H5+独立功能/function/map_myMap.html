@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+#myMap {
+	width: 100%;
+	position: fixed;
+	top: 145px;
+	bottom: 0px;
+	line-height: 200px;
+	text-align: center;
+	background: #FFFFFF;
+}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">内置地图</h1>
+			<a onclick="userLocation()" class="mui-icon mui-icon-map mui-pull-right"></a>
+		</header>
+		<div class="mui-content">
+		    <button onclick="addroute()" type="button" class="mui-btn mui-btn-blue mui-btn-outlined">导航</button>
+		    <button onclick="searchmap()" type="button" class="mui-btn mui-btn-blue mui-btn-outlined">搜索</button>
+		     <button onclick="walkingSearch()" type="button" class="mui-btn mui-btn-blue mui-btn-outlined">真.导航</button>
+		     <button onclick="changeMap()" type="button" class="mui-btn mui-btn-blue mui-btn-outlined">转码</button>
+		</div>
+		<div id="myMap" >
+地图加载中...
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+		var em=null,map=null;
+// H5 plus事件处理
+function plusReady(){
+	// 确保DOM解析完成
+	if(!em||!window.plus||map){return};
+	map = new plus.maps.Map("myMap");
+}
+if(window.plus){
+	plusReady();
+}else{
+	document.addEventListener("plusready",plusReady,false);
+}
+// DOMContentloaded事件处理
+document.addEventListener("DOMContentLoaded",function(){
+	em=document.getElementById("myMap");
+	plusReady();
+},false);
+
+function userLocation(){
+	map.showUserLocation( true );
+	map.getUserLocation(function(state,pos){
+		if(0==state){
+			map.setCenter(pos);
+		}
+	});
+}
+
+function addroute(){
+	var dst = new plus.maps.Point(116.39131928, 39.90793074); // 天安门 
+				var src = new plus.maps.Point(116.335, 39.966); // 大钟寺
+	var routeObj = new plus.maps.Route(dst,src)
+	map.addOverlay(routeObj);
+}
+//具体地点搜索
+function searchmap(){
+		var searchObj = new plus.maps.Search( map );
+	searchObj.onPoiSearchComplete = function( state, result ){
+		console.log("onPoiSearchComplete: "+state+" , "+result.currentNumber);
+		if ( state == 0 ) {
+			if ( result.currentNumber <= 0 ) {
+				alert( "没有检索到结果" );
+			}
+			for(var i=0; i<result.currentNumber; i++){
+				var pos = result.getPosition( i );
+				var marker = new plus.maps.Marker( pos.point );
+				marker.setLabel( pos.name );
+				map.addOverlay( marker );
+			}
+		} else {
+			alert( "检索失败" );
+		}
+	}
+	var pt = new plus.maps.Point( 104.06, 30.67 ); // 天安门坐标
+	searchObj.poiSearchNearBy( "厕所", pt, 1000 );
+}
+//步行导航
+//TODO 成都搜索不到为什么,以后不行，就先转码
+function walkingSearch(){
+	// 检索从北京天安门到大钟寺的步行线路
+	var searchObj = new plus.maps.Search( map );
+	searchObj.onRouteSearchComplete = function ( state, result ) {
+		console.log("onRouteSearchComplete: "+state+" , "+result.routeNumber);
+		if ( state == 0 ) {
+			if ( result.routeNumber <= 0 ) {
+				alert( "没有检索到结果" );
+			}
+			for(var i=0; i<result.routeNumber; i++){
+				map.addOverlay( result.getRoute( i ) );
+			}
+		} else {
+			alert( "检索失败" );
+		}
+	}
+	searchObj.walkingSearch( "四川大学", "成都", "天府广场", "成都" );
+}
+
+//地理转码
+function changeMap(){
+	plus.maps.Map.geocode("天府广场",{city:"成都"},function(event){
+		var address = event.address;  // 转换后的地理位置
+	var point = event.coord;  // 转换后的坐标信息
+	var coordType = event.coordType;	// 转换后的坐标系类型
+		alert("Coord:"+JSON.stringify(point));
+	},function(e){
+		alert("Failed:"+JSON.stringify(e));
+	})
+}
+		</script>
+	</body>
+
+</html>
