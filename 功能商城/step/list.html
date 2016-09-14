@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/list.js"></script>
+		<style>
+				.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">功能商城</h1>
+		</header>
+		<div class="mui-content">
+
+			<!--
+            	作者：394713927@qq.com
+            	时间：2016-09-13
+            	描述：界面相关链接
+            -->
+			<div class="title">UI</div>
+			<ul id="UI" class="mui-table-view mui-grid-view mui-grid-9"></ul>
+
+			<!--
+            	作者：394713927@qq.com
+            	时间：2016-09-13
+            	描述：功能相关链接
+            -->
+			<div class="title">功能</div>
+			<ul id="function" class="mui-table-view mui-grid-view mui-grid-9"></ul>
+			<!--
+                	作者：394713927@qq.com
+                	时间：2016-09-13
+                	描述：后端相关链接
+               -->
+			<div class="title">服务器</div>
+
+			<ul id="server" class="mui-table-view mui-grid-view mui-grid-9"></ul>
+			<!--
+                	作者：394713927@qq.com
+                	时间：2016-09-13
+                	描述：数据库相关链接
+                -->
+			<div class="title">数据库</div>
+			<ul id="data" class="mui-table-view mui-grid-view mui-grid-9"></ul>
+
+		</div>
+
+		
+		<script type="text/javascript">
+			var ui = myfunction.UI;
+			var fun = myfunction.function;
+			var server = myfunction.server;
+			var data = myfunction.data;
+			addlist(ui, "UI")
+			addlist(fun, "function");
+			addlist(server,"server");
+			addlist(data,"data")
+
+			mui.init()
+
+			mui(".mui-table-view-cell").on("tap", "a", function() {
+				var idURL = "function/" + this.getAttribute("id") + ".html";
+				var id = this.getAttribute("id");
+				console.log("打开" + id + "功能")
+				mui.openWindow(idURL, id, {
+					extras: {
+						hidden: "yes"
+					}
+				});
+			})
+		</script>
+	</body>
+
+</html>

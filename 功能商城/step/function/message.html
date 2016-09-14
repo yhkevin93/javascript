@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/myCss.css" />
+		<script type="text/javascript" src="../../js/common.js" ></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">通讯</h1>
+		</header>
+		
+		<div class="mui-content">
+		    <button type="button" class="mui-btn mui-btn-blue" onclick="yh.message.Email()">发送邮件</button>
+		    <button type="button" class="mui-btn mui-btn-blue" onclick="yh.message.SMS()">发送短信</button>
+		    <div onclick="goon()" id="yh_next">
+		    	
+		    </div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function () {
+			    check()
+			})
+			function goon(){
+				mui.openWindow("runtime.html")
+			}
+			
+			var yh = {}
+			yh.message = {
+				Email:function(){
+					var email = plus.messaging.createMessage(plus.messaging.TYPE_EMAIL)
+					email.to = ["394713927@qq.com"];
+					email.body = "这是一份测试邮件";
+					email.subject = "测试邮件";
+					
+					plus.messaging.sendMessage(email,function(){
+						alert("send success");
+					},function(){
+						alert("send fail");
+					})
+				},
+				SMS:function(){
+					var sms = plus.messaging.createMessage(plus.messaging.TYPE_SMS)
+					sms.to = ["18030409893"];
+					sms.body = "这是一份测试短信";
+					
+					plus.messaging.sendMessage(sms,function(){
+						alert("send success");
+					},function(){
+						alert("send fail");
+					})
+				}
+					
+			}
+		</script>
+	</body>
+
+</html>

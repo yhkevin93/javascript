@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/myCss.css" rel="stylesheet" />
+		<script type="text/javascript" src="../../js/common.js" ></script>
+		</head>
+
+	<body>
+		<script src="../../js/mui.min.js"></script>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">第三方登陆</h1>
+		</header>
+		<div id="oauth" class="mui-content">
+			<div id="oauth"></div>
+
+			<button onclick="yh.OAuth.logout()" type="button" class="mui-btn mui-btn-blue mui-btn-block">注销</button>
+        <div id="yh_next" onclick="goon()"></div>
+		</div>
+		
+		<!--
+            	作者：394713927@qq.com
+            	时间：2016-08-26
+            	描述：第三方登陆集成方法，首先登陆，登陆后自动获取userinfo给客户展示获取到的数据
+           -->
+		<script type="text/javascript">
+			//服务
+			var auths = {};
+
+     function goon(){
+     	mui.openWindow("message.html")
+     }
+
+			function plusReady() {
+				plus.oauth.getServices(function(services) {
+ check()
+					//	console.log("获取服务成功:" + JSON.stringify(auths))
+
+					for(var i in services) {
+						var service = services[i]
+						auths[service.id] = service
+						console.log(service.id + service.description + service.userInfo);
+						var de = document.createElement("div");
+						de.setAttribute("class", "mui-btn mui-btn-blue mui-btn-block");
+						de.setAttribute("onclick", "yh.OAuth.login(this.id)");
+						de.id = service.id
+						de.innerText = service.description + "登录";
+						document.getElementById("oauth").appendChild(de);
+
+						var msg = document.createElement("div")
+						msg.setAttribute("class", "mui-btn mui-btn-blue mui-btn-block");
+						msg.setAttribute("onclick", "yh.OAuth.getUserInfo(this.id)");
+						msg.id = service.id
+						msg.innerText = "获取" + service.description + "信息";
+						document.getElementById("oauth").appendChild(msg);
+					}
+				}, function(e) {
+					alert("获取分享服务列表失败：" + e.message + " - " + e.code);
+				});
+			}
+			document.addEventListener('plusready', plusReady, false);
+
+			var yh = {};
+			//第三方登陆
+			yh.OAuth = {
+				//登陆
+				login: function(id) {
+					auths[id].login(function() {
+						mui.toast(auths[id].description + "login success");
+					}, function() {
+						console.log("login fail");
+					})
+				},
+				//获得用户信息
+				getUserInfo: function(id) {
+					auths[id].getUserInfo(function(e) {
+						console.log("get success");
+						var result = e.target.authResult;
+						mui.toast("Result:" + JSON.stringify(result) + "userinfo:" + JSON.stringify(other));
+						var other = e.target.userInfo;
+						//						console.log("userinfo:" + JSON.stringify(other));
+					}, function() {
+						console.log("get fail");
+					})
+				},
+				//注销
+				logout: function() {
+					for(var i in auths) {
+						auths[i].logout(function(e) {
+							console.log("注销成功");
+						}, function(e) {
+							console.log("注销失败");
+						})
+					}
+
+				}
+
+				//结束括号
+			}
+
+			//							function login(){
+			//								auths[0].login(function(){
+			//									console.log("login success");
+			//								},function(){
+			//									console.log("login fail");
+			//								})
+			//							}
+			//							
+			//							//获取用户信息
+			//							function getUserInfo(){
+			//								auths[0].getUserInfo(function(){
+			//									console.log("get success")
+			//								},function(){
+			//									console.log("get fail")
+			//								})
+			//							}
+			//			
+			//			var yh = {};
+			//			yh.data ={
+			//				fuck:function(name){
+			//					console.log("fuck" +name);
+			//				},
+			//				
+			//			}
+		</script>
+	</body>
+
+</html>

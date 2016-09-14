@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/myCss.css" />
+		<script type="text/javascript" src="../../js/common.js" ></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">相机</h1>
+		</header>
+		<div class="mui-content">
+			<button type="button" onclick="takePhotos()" class="mui-btn mui-btn-blue mui-btn-outlined">照相</button>
+			<button class="mui-btn mui-btn-blue mui-btn-outlined" onclick="videoCapture()">摄像</button><br/>
+					
+			<div class="yh_test">测试信息
+				<p>分享成功</p>
+			</div>
+
+			<div class="yh_function">功能描述
+				<p>相机功能</p>
+			</div>
+
+			<div onclick="goon()" id="yh_next"></div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+		function goon(){
+			mui.openWindow("map.html")
+		}
+		mui.plusReady(function () {
+		    check()
+		})
+			mui.init()
+				//照相
+			function takePhotos() {
+				var cmr = plus.camera.getCamera();
+				cmr.captureImage(function(path) {
+					console.log(path);
+				}, function(error) {
+					console.log("失败原因:" + error.message)
+				})
+			}
+                 //摄像
+			function videoCapture() {
+				cmr = plus.camera.getCamera();
+				var res = cmr.supportedVideoResolutions[0];
+				var fmt = cmr.supportedVideoFormats[0];
+				console.log("Resolution: " + res + ", Format: " + fmt);
+				cmr.startVideoCapture(function(path) {
+						alert("Capture video success: " + path);
+					},
+					function(error) {
+						alert("Capture video failed: " + error.message);
+					}, {
+						resolution: res,
+						format: fmt
+					}
+				);
+				// 拍摄10s后自动完成 
+				setTimeout(stopCapture, 10000);
+			}
+			
+			// 停止摄像
+			function stopCapture() {
+				console.log("stopCapture");
+				cmr.stopVideoCapture();
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/myCss.css" />
+		<script type="text/javascript" src="../../js/common.js" ></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">定位</h1>
+		</header>
+		<div class="mui-content">
+		
+		<div  style="text-align:center; width:100%;height:100%;margin:0 auto ">     
+         <button onclick="watchPosition()" type="button" class="mui-btn mui-btn-blue">点击开始定位</button>
+         
+         <button onclick="closePosition()" type="button" class="mui-btn mui-btn-blue">关闭定位</button>
+         </div>  
+			
+			 <div class="yh_test">测试信息
+				<p id="test">正在获取定位信息...</p>
+			</div>
+
+			<div class="yh_function">功能描述
+				<p>获取当前定位</p>
+			</div>
+
+			<div onclick="goon()" id="yh_next"></div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function() {
+				check()
+				plus.geolocation.getCurrentPosition(function(p) {
+					document.getElementById("test").innerHTML = "经度：" + p.coords.longitude + "<br>纬度：" + p.coords.latitude +"<br>高度：" + p.coords.altitude
+
+				}, function(e) {
+					alert("geolocation get fails");
+				}, {
+					provider: 'baidu'
+				});
+			})
+
+			//检测处理
+			var where
+          //开始定位
+			function watchPosition() {
+				where = plus.geolocation.watchPosition(function(p) {
+					document.getElementById("test").innerHTML = "经度：" + p.coords.longitude + "<br>纬度：" + p.coords.latitude +"<br>高度：" + p.coords.altitude
+					console.log("正在定位")
+
+				}, function(e) {
+					alert("geolocation get fails");
+				}, {
+					provider: 'baidu'
+				})
+			}
+          //停止定位
+			function closePosition() {
+				plus.geolocation.clearWatch(where);
+				where = null;
+				console.log("停止定位")
+			}
+			
+			function goon(){
+				mui.openWindow("")
+			}
+		</script>
+	</body>
+
+</html>
