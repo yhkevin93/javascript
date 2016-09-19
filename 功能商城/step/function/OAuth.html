@@ -7,6 +7,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<link href="../../css/myCss.css" rel="stylesheet" />
+	<script type="text/javascript" src="../../js/step.js" ></script>
 		<script type="text/javascript" src="../../js/common.js" ></script>
 		</head>
 
@@ -14,12 +15,13 @@
 		<script src="../../js/mui.min.js"></script>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">第三方登陆</h1>
+			<h1  id="title" class="mui-title">第三方登陆</h1>
 		</header>
 		<div id="oauth" class="mui-content">
 			<div id="oauth"></div>
 
 			<button onclick="yh.OAuth.logout()" type="button" class="mui-btn mui-btn-blue mui-btn-block">注销</button>
+			<div id="yh_buy" name="share" onclick="buy(this.name)"></div>
         <div id="yh_next" onclick="goon()"></div>
 		</div>
 		

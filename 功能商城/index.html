@@ -32,7 +32,7 @@
 			<div class="but">
 				<button onclick="toBusiness()" type="button" class="mui-btn mui-btn-blue">导航</button>
 				<p>系统化的展示你需要的功能</p>
-				<button type="button" class="mui-btn mui-btn-blue">浏览</button>
+				<button onclick="tolist()" type="button" class="mui-btn mui-btn-blue">浏览</button>
 				<p>快速自主的选择你需要的功能</p>
 			</div>
 		</div>
@@ -67,6 +67,10 @@
 			
 			function toBusiness(){
 				mui.openWindow("step/business.html")
+			}
+			
+			function tolist(){
+				mui.openWindow("step/list.html")
 			}
 		</script>
 	</body>

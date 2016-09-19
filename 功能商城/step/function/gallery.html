@@ -7,6 +7,7 @@
 		<meta name="MobileOptimized" content="320"/>
 		<title>Hello H5+</title>
 		<script src="../../js/mui.min.js"></script>
+	<script type="text/javascript" src="../../js/step.js" ></script>
 		<script type="text/javascript" src="../../js/common.js"></script>
 		<script type="text/javascript">
 function plusReady(){
@@ -169,7 +170,7 @@ window.back=function(){
 	<body>
 		<header id="header">
 			<div class="nvbt iback" onclick="back(true);"></div>
-			<div class="nvtt">Gallery</div>
+			<div id="title" class="nvtt">Gallery</div>
 			
 		</header>
 		<div id="dcontent" class="dcontent">
@@ -196,8 +197,9 @@ window.back=function(){
 			
 		</div>
 		<div id="output">
+			<div id="yh_buy" name="share" onclick="buy(this.name)"></div>
 			<div onclick="goon()" id="yh_next"></div>
-Gallery模块管理系统相册，如从相册中选择图片或视频文件、保存图片或视频文件到相册等功能。
+
 		</div>
 	</body>
 	<script type="text/javascript" src="../js/immersed.js" >

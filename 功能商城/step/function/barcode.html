@@ -7,71 +7,70 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="../../css/myCss.css" />
-		<script type="text/javascript" src="../../js/common.js" ></script>
+	<script type="text/javascript" src="../../js/step.js" ></script>
+		<script type="text/javascript" src="../../js/common.js"></script>
 		<style>
 			#bcid {
-	background: #C7C7CC;
-	height:300px;
-	width:100%;
-}
+				background: #C7C7CC;
+				height: 300px;
+				width: 100%;
+			}
 		</style>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">二维码</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1  id="title" class="mui-title">二维码</h1>
 		</header>
 		<div class="mui-content">
-		     <div id= "bcid"></div>
-		     <input type='button' onclick='startScan()' value='开始扫描'  />
-		<input type='button' onclick='cancelScan()' value='取消扫描' />
-		<button onclick="scanPicture()">从相册中选择</button>
-		     
-		    <div class="yh_test">测试信息
-				<p>分享成功</p>
-			</div>
+			<div id="bcid"></div>
+			<input type='button' onclick='startScan()' value='开始扫描' />
+			<input type='button' onclick='cancelScan()' value='取消扫描' />
+			<button onclick="scanPicture()">从相册中选择</button>
 
-			<div class="yh_function">功能描述
-				<p>地图功能</p>
-			</div>
-
+		
+			<div id="yh_buy" name="share" onclick="buy(this.name)"></div>
 			<div onclick="goon()" id="yh_next"></div>
 		</div>
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript">
 			mui.init()
-			mui.plusReady(function(){
+			mui.plusReady(function() {
 				//自动根据给定id的div
 				check()
 				scan = new plus.barcode.Barcode('bcid');
-	scan.onmarked = onmarked; 
-	 scan.start({conserve:true,filename:"_doc/barcode/"});
+				scan.onmarked = onmarked;
+				scan.start({
+					conserve: true,
+					filename: "_doc/barcode/"
+				});
 			})
-			
+
 			// 从相册中选择二维码图
-function scanPicture() {
-    plus.gallery.pick(function(path){
-	    plus.barcode.scan(path,onmarked,function(error){
-			plus.nativeUI.alert( "无法识别此图片" );
-		});
-    },function(err){
-        plus.nativeUI.alert("Failed: "+err.message);
-    });
-}
+			function scanPicture() {
+				plus.gallery.pick(function(path) {
+					plus.barcode.scan(path, onmarked, function(error) {
+						plus.nativeUI.alert("无法识别此图片");
+					});
+				}, function(err) {
+					plus.nativeUI.alert("Failed: " + err.message);
+				});
+			}
 
-function goon(){
-	mui.openWindow("audio.html")
-}
+			function goon() {
+				mui.openWindow("audio.html")
+			}
 
-function startScan() {
-	scan.start();
-}
-function cancelScan() {
-	scan.cancel();
-}
+			function startScan() {
+				scan.start();
+			}
 
-function onmarked(type, result) {
+			function cancelScan() {
+				scan.cancel();
+			}
+
+			function onmarked(type, result) {
 				var text = '未知: ';
 				switch(type) {
 					case plus.barcode.QR:
@@ -85,9 +84,8 @@ function onmarked(type, result) {
 						break;
 				}
 				alert(text + result);
-				
-			}
 
+			}
 		</script>
 	</body>
 

@@ -6,6 +6,7 @@
 		<meta name="HandheldFriendly" content="true"/>
 		<meta name="MobileOptimized" content="320"/>
 		<title>Hello H5+</title>
+	<script type="text/javascript" src="../../js/step.js" ></script>
 		<script type="text/javascript" src="../../js/mui.min.js" ></script>
 		<script type="text/javascript" src="../../js/common.js"></script>
 		<script type="text/javascript">
@@ -101,7 +102,7 @@ function updateApp(){
 	<body>
 		<header id="header">
 			<div class="nvbt iback" onclick="mui.back();"></div>
-			<div class="nvtt">Runtime</div>
+			<div  id="title" class="nvtt">Runtime</div>
 	
 		</header>
 		<div id="dcontent" class="dcontent">
@@ -122,8 +123,9 @@ function updateApp(){
 			</ul>
 		</div>
 		<div id="output">
+			<div id="yh_buy" name="share" onclick="buy(this.name)"></div>
 			<div id="yh_next"></div>
-Runtime管理程序运行时环境，可用于获取程序的各种信息、与第三方程序通讯等。
+
 		</div>
 	</body>
 	<script type="text/javascript" src="../js/immersed.js" ></script>

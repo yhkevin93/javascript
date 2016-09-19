@@ -9,9 +9,11 @@
 		<title>Hello H5+</title>
 		<script type="text/javascript" src="../../js/mui.min.js" ></script>
 		<script type="text/javascript" src="../../js/common.js"></script>
+	<script type="text/javascript" src="../../js/step.js" ></script>
+		<link rel="stylesheet" href="../../css/mui.min.css" />
 		<script type="text/javascript">
 		mui.plusReady(function () {
-		    check()
+		   check()
 		})
 function getAcc() {
 	outSet( "获取设备当前加速度" );
@@ -52,7 +54,7 @@ function goon(){
 	<body>
 		<header id="header">
 			<div class="nvbt iback" onclick="mui.back();"></div>
-			<div class="nvtt">Accelerometer</div>
+			<div  id="title" class="nvtt">Accelerometer</div>
 			
 		</header>
 		<div id="dcontent" class="dcontent">
@@ -66,13 +68,15 @@ function goon(){
 	            <li class="ditem" onclick="watchAcc()">监听设备加速度变化 </li>
 	            <li class="ditem" onclick="watchStop()">停止监听设备加速度变化</li>
 			</ul>
-		</div>
-		<div id="output">
-			<div id="yh_next" onclick="goon()"></div>
-				
+			<div id="yh_delete" style="visibility: hidden;"><button >删除</button></div>
 			
-Accelerometer可获取设备加速度传感器信息，包括x轴（屏幕水平方向）、y轴（垂直屏幕水平方向）、z轴（垂直屏幕平面方向）三个方向的加速度信息。
 		</div>
+		
+		
+		
+		<div id="yh_buy" name="share" onclick="buy(this.name)"></div>
+			<div id="yh_next" onclick="goon()"></div>
+		
 	</body>
 	<script type="text/javascript" src="../js/immersed.js" ></script>
 </html>

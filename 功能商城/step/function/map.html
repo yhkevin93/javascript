@@ -7,6 +7,8 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="../../css/myCss.css" />
+		<script type="text/javascript" src="../../js/step.js" ></script>
+		
 		<script type="text/javascript" src="../../js/common.js" ></script>
 		<style>
 			#myMap {
@@ -22,7 +24,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">地图</h1>
+		    <h1 id="title" class="mui-title">地图</h1>
 		</header>
 		<div class="mui-content">
 			<div id="myMap">
@@ -32,13 +34,8 @@
 		<button onclick="searchmap()" type="button" class="mui-btn mui-btn-blue">搜索</button>
 		<button onclick="walkingSearch()" type="button" class="mui-btn mui-btn-blue">导航</button>
 			
-		    <div class="yh_test">测试信息
-				<p>分享成功</p>
-			</div>
-
-			<div class="yh_function">功能描述
-				<p>地图功能</p>
-			</div>
+		 
+			<div id="yh_buy"  onclick="buy()"></div>
 
 			<div onclick="goon()" id="yh_next"></div>
 		</div>
@@ -47,6 +44,7 @@
 		<script type="text/javascript">
 		function goon(){
 			mui.openWindow("gallery.html")
+			
 		}
 			mui.init()
 			
@@ -60,6 +58,8 @@
 					return
 				};
 				map = new plus.maps.Map("myMap");
+				
+
 				
 			}
 			if(window.plus) {

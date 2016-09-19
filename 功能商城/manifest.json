@@ -101,7 +101,7 @@
         },
         "NativeObj":{
         	"description": "原生对象"
-        },"Push":{},"OAuth":{},"Share":{},"Payment":{},"Statistic":{}
+        },"Push":{},"Share":{},"Payment":{},"Statistic":{},"OAuth":{}
 	},
 	"plus": {
 		"splashscreen": {

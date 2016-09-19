@@ -21,61 +21,53 @@
 		<header class="mui-bar mui-bar-nav">
 			<h1 class="mui-title">功能商城</h1>
 		</header>
-		<div class="mui-content">
-
-			<!--
-            	作者：394713927@qq.com
-            	时间：2016-09-13
-            	描述：界面相关链接
-            -->
-			<div class="title">UI</div>
-			<ul id="UI" class="mui-table-view mui-grid-view mui-grid-9"></ul>
-
-			<!--
-            	作者：394713927@qq.com
-            	时间：2016-09-13
-            	描述：功能相关链接
-            -->
-			<div class="title">功能</div>
-			<ul id="function" class="mui-table-view mui-grid-view mui-grid-9"></ul>
-			<!--
-                	作者：394713927@qq.com
-                	时间：2016-09-13
-                	描述：后端相关链接
-               -->
-			<div class="title">服务器</div>
-
-			<ul id="server" class="mui-table-view mui-grid-view mui-grid-9"></ul>
-			<!--
-                	作者：394713927@qq.com
-                	时间：2016-09-13
-                	描述：数据库相关链接
-                -->
-			<div class="title">数据库</div>
-			<ul id="data" class="mui-table-view mui-grid-view mui-grid-9"></ul>
-
+		<div id="body" class="mui-content">
+			<button type="button" onclick="gobought()" class="mui-btn mui-btn-blue">已购买</button>
 		</div>
 
 		
 		<script type="text/javascript">
-			var ui = myfunction.UI;
-			var fun = myfunction.function;
-			var server = myfunction.server;
-			var data = myfunction.data;
-			addlist(ui, "UI")
-			addlist(fun, "function");
-			addlist(server,"server");
-			addlist(data,"data")
-
+          function gobought(){
+          	mui.openWindow("bought.html")
+          }
+            
+			add()
+      
 			mui.init()
-
+            
+           
+ 
+          //跳转页面：只显示购买
 			mui(".mui-table-view-cell").on("tap", "a", function() {
+				var money = 0;
+				var type = 0;
+				var name = 0;
+				var id = 0
+				for(var o in yhfun){
+					var list = yhfun[o];
+					for(var i in list){
+						if(this.getAttribute("id") == i){
+							money = list[i].money;
+							type = list[i].type;
+							name = list[i].name;
+							id = list[i].name;
+						}
+					}
+				}
+				
+				
 				var idURL = "function/" + this.getAttribute("id") + ".html";
 				var id = this.getAttribute("id");
 				console.log("打开" + id + "功能")
 				mui.openWindow(idURL, id, {
 					extras: {
-						hidden: "yes"
+						next:"hidden",
+						buy:"visible",
+						money:money,
+						type:type,
+						name:name,
+						id:id
+					
 					}
 				});
 			})

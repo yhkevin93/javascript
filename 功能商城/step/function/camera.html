@@ -7,6 +7,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="../../css/myCss.css" />
+		<script type="text/javascript" src="../../js/step.js" ></script>
 		<script type="text/javascript" src="../../js/common.js" ></script>
 	</head>
 
@@ -19,13 +20,7 @@
 			<button type="button" onclick="takePhotos()" class="mui-btn mui-btn-blue mui-btn-outlined">照相</button>
 			<button class="mui-btn mui-btn-blue mui-btn-outlined" onclick="videoCapture()">摄像</button><br/>
 					
-			<div class="yh_test">测试信息
-				<p>分享成功</p>
-			</div>
-
-			<div class="yh_function">功能描述
-				<p>相机功能</p>
-			</div>
+			<div id="yh_buy" name="share" onclick="buy(this.name)"></div>
 
 			<div onclick="goon()" id="yh_next"></div>
 		</div>

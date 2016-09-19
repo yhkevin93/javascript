@@ -8,6 +8,7 @@
 		<title>Hello H5+ 2</title>
 		<link rel="stylesheet" type="text/css" href="../../css/myCss.css"/>
 		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/step.js" ></script>
 		<script type="text/javascript" src="../../js/common.js"></script>
 		<script type="text/javascript">
 var gentry=null,hl=null,le=null;
@@ -323,7 +324,7 @@ window.back=resetback;
 	<body>
 		<header id="header">
 			<div class="nvbt iback" onclick="back(true);"></div>
-			<div class="nvtt">Audio</div>
+			<div  id="title" class="nvtt">Audio</div>
 			<div class="nvbt idoc" onclick="openDoc('Audio Document','/doc/audio.html')"></div>
 		</header>
 		<div id="dcontent" class="dcontent">
@@ -337,11 +338,14 @@ window.back=resetback;
 			</ul>
 			<br/>
 			<div class="button button-waring" onclick="cleanHistory();">清空历史记录</div>
+			<div id="yh_delete" style="visibility: hidden;"><button >删除</button></div>
 			<br/>
 		</div>
 		<div id="output">
+			
+			<div id="yh_buy" name="share" onclick="buy(this.name)"></div>
 			<div onclick="goon()" id="yh_next"></div>
-Audio用于管理音频设备，可调用麦克风录制音频文件，也可播放音频文件。
+
 		</div>
 		<div id="play" class="rp">
 			<div id="ptime" class="ptime">00:00:00/00:00:00</div><br/>

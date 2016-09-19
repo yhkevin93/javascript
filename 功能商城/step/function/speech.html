@@ -9,6 +9,7 @@
 		<title>Hello H5+</title>
 		
 		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/step.js" ></script>
 		<script type="text/javascript" src="../../js/common.js"></script>
 		<script type="text/javascript">
 			var text = null;
@@ -51,7 +52,7 @@
 	<body onload="text=document.getElementById('text');">
 		<header id="header">
 			<div class="nvbt iback" onclick="mui.back()"></div>
-			<div class="nvtt">Speech</div>
+			<div  id="title" class="nvtt">Speech</div>
 
 		</header>
 		<div id="dcontent" class="dcontent">
@@ -64,8 +65,8 @@
 		</div>
 
 		<div id="output">
+			<div id="yh_buy" name="share" onclick="buy(this.name)"></div>
 			<div onclick="goon()" id="yh_next"></div>
-			Speech提供语音识别功能，可通过麦克风设备进行语音输入操作。
 
 		</div>
 	</body>

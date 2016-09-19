@@ -1,4 +1,4 @@
-.yh_next {
+#yh_next {
 	width: 60px;
 	height: 60px;
 	border: 1px soild #f00;
@@ -12,11 +12,32 @@
 .yh_function {
 	position: fixed;
 	left: 20px;
-	bottom: 200px
+	bottom: 150px;
 }
 
 .yh_test {
+	
 	clear: both;
 	margin-left: 20px;
 	padding-top: 20px;
+}
+
+#yh_buy {
+	width: 60px;
+	height: 60px;
+	border: 1px soild #f00;
+	background: url(../img/购买.png);
+	background-size: 100%;
+	bottom: 20px;
+	left: 20px;
+	position: fixed;
+}
+
+#yh_delete{
+	text-align: center;
+}
+
+#yh_delete button{
+	background-color: tomato;
+	width: 200px;
 }
